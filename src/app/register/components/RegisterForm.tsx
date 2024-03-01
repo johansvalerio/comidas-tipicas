@@ -1,65 +1,100 @@
 "use client"
 import { useState } from 'react'
+import { useForm } from "react-hook-form"
+import { type UserFormData } from '@/app/types/user'
 
 function RegisterForm() {
-
+    
     const [email, setEmail] = useState('')
+    const { register, handleSubmit, formState: { errors } } = useForm<UserFormData>()
     const [password, setPassword] = useState('')
     const [name, setName] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-
-        const data = new FormData()
-
-        const name = event.currentTarget.fullName.value
-        data.append('fullName', name)
-        setName(name)
-
-        const email = event.currentTarget.email.value
-        data.append('email', email)
-        setEmail(email)
-
-        const password = event.currentTarget.password.value
-        data.append('password', password)
-        setPassword(password)
-
-        const confirmPassword = event.currentTarget.confirmPassword.value
-        data.append('confirmPassword', confirmPassword)
-        setPassword(confirmPassword)
-
-        console.log("fullName:" + data.get('fullName'), "Email:" + data.get('email'), "Password:" + data.get('password'), "ConfirmPassword:" + data.get('confirmPassword'))
-    }
+    
+    const onSubmit = handleSubmit(async (data: UserFormData) => {
+        console.log(data)
+        const res = await fetch('/api/register', {
+            method: 'POST',
+            body: JSON.stringify({
+                user_name: data.user_name,
+                user_email: data.user_email,
+                user_password: data.user_password
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        const resJSON = await res.json()
+        console.log(resJSON)
+    })
 
     return (
         <div className='flex flex-col min-h-screen justify-center items-center gap-3 p-4'>
-            <h1 className='text-xl'>Registro de usuario</h1>
+            <div className='w-full max-w-sm text-white'>
+                <h1 className='text-xl'>Registro de usuario</h1>
+            </div>
+            
             <div className="w-full max-w-sm p-4 bg-slate-300 rounded-lg text-black">
-                <form className="flex flex-col space-y-3" onSubmit={handleSubmit}>
-                    <label htmlFor="password" className='font-semibold opacity-70'>Name: </label>
+                <form
+                    className="flex flex-col space-y-3"
+                    onSubmit={onSubmit}>
+                    <label htmlFor="user_name" className='font-semibold opacity-70'>Name: </label>
                     <input
-                        onChange={(e) => setName(e.target.value)}
                         type="text"
-                        id="fullName"
-                        name='fullName'
+                        {...register("user_name", {
+                            required: {
+                              value: true,
+                              message: "Username is required",
+                            },
+                            onChange: (e) => setName(e.target.value),
+                        })}
+                        id="user_name"
+                        name='user_name'
                         className="rounded-md p-2.5 text-md opacity-60" placeholder="John Doe" />
-                    <label htmlFor="email" className='font-semibold opacity-70'>Email:</label>
+                         {
+                        errors.user_name && <p className='text-red-500'>{errors.user_name.message}</p>
+                    }
+                    <label htmlFor="user_email" className='font-semibold opacity-70'>Email:</label>
                     <input
-                        onChange={(e) => setEmail(e.target.value)}
                         type="email"
-                        id="email"
-                        name='email'
+                        {...register("user_email", {
+                            required: {
+                              value: true,
+                              message: "Email is required",
+                            },
+                            onChange: (e) => setEmail(e.target.value),
+                          })}
+                        id="user_email"
+                        name='user_email'
                         className="rounded-md p-2.5 text-md opacity-60"
                         placeholder="ejemplo@dominio.com" />
-                    <label htmlFor="password" className='font-semibold opacity-70'>Password: </label>
+                    {
+                        errors.user_email && <p className='text-red-500'>{errors.user_email.message}</p>
+                    }
+                    <label htmlFor="user_password" className='font-semibold opacity-70'>Password: </label>
                     <input
-                        onChange={(e) => setPassword(e.target.value)}
-                        type="password" id="password" name='password' className="rounded-md p-2.5 text-md opacity-60" placeholder="******" />
+                       {...register("user_password", {
+                        required: {
+                          value: true,
+                          message: "Password is required",
+                        },
+                        onChange: (e) => setPassword(e.target.value),
+                      })}
+                        type="password" id="user_password" name='user_password' className="rounded-md p-2.5 text-md opacity-60" placeholder="******" />
+                         {
+                        errors.user_password && <p className='text-red-500'>{errors.user_password.message}</p>
+                    }
                     <label htmlFor="confirmPassword" className='font-semibold opacity-70'>Confirm password: </label>
                     <input
-                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        {...register("confirmPassword", {
+                            required: true,
+                            onChange: (e) => setConfirmPassword(e.target.value),
+                        })}
                         type="password" id="confirmPassword" name='confirmPassword' className="rounded-md p-2.5 text-md opacity-60" placeholder="******" />
+                    {
+                        errors.confirmPassword && <p className='text-red-500'>Las contraseñas no coinciden</p>
+                    }
                     <hr />
                     <button type='submit' className='rounded-md p-2.5 text-md bg-gray-900 text-white hover:bg-gray-800'>Registrar</button>
 
