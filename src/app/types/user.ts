@@ -10,6 +10,7 @@ export interface User {
 }
 
 export interface UserFormData {
+  user_id: number,
   user_name: string,
   user_email: string,
   user_password: string,

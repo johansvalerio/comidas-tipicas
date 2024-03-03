@@ -2,16 +2,19 @@
 import { useState } from 'react'
 import { useForm } from "react-hook-form"
 import { type UserFormData } from '@/app/types/user'
+import { useRouter } from 'next/navigation'
 
 function RegisterForm() {
-    
+
+    const router = useRouter()
+
     const [email, setEmail] = useState('')
     const { register, handleSubmit, formState: { errors } } = useForm<UserFormData>()
     const [password, setPassword] = useState('')
     const [name, setName] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
-    
+
     const onSubmit = handleSubmit(async (data: UserFormData) => {
         console.log(data)
         const res = await fetch('/api/register', {
@@ -26,16 +29,14 @@ function RegisterForm() {
             }
         })
         const resJSON = await res.json()
+        router.refresh()
         console.log(resJSON)
     })
 
     return (
-        <div className='flex flex-col min-h-screen justify-center items-center gap-3 p-4'>
-            <div className='w-full max-w-sm text-white'>
-                <h1 className='text-xl'>Registro de usuario</h1>
-            </div>
-            
-            <div className="w-full max-w-sm p-4 bg-slate-300 rounded-lg text-black">
+        <div className='w-full'>
+            <h1 className='text-xl'>Registro de usuario</h1>
+            <div className="w-full p-4 bg-slate-300 rounded-lg text-black">
                 <form
                     className="flex flex-col space-y-3"
                     onSubmit={onSubmit}>
@@ -44,15 +45,15 @@ function RegisterForm() {
                         type="text"
                         {...register("user_name", {
                             required: {
-                              value: true,
-                              message: "Username is required",
+                                value: true,
+                                message: "Username is required",
                             },
                             onChange: (e) => setName(e.target.value),
                         })}
                         id="user_name"
                         name='user_name'
                         className="rounded-md p-2.5 text-md opacity-60" placeholder="John Doe" />
-                         {
+                    {
                         errors.user_name && <p className='text-red-500'>{errors.user_name.message}</p>
                     }
                     <label htmlFor="user_email" className='font-semibold opacity-70'>Email:</label>
@@ -60,11 +61,11 @@ function RegisterForm() {
                         type="email"
                         {...register("user_email", {
                             required: {
-                              value: true,
-                              message: "Email is required",
+                                value: true,
+                                message: "Email is required",
                             },
                             onChange: (e) => setEmail(e.target.value),
-                          })}
+                        })}
                         id="user_email"
                         name='user_email'
                         className="rounded-md p-2.5 text-md opacity-60"
@@ -74,15 +75,15 @@ function RegisterForm() {
                     }
                     <label htmlFor="user_password" className='font-semibold opacity-70'>Password: </label>
                     <input
-                       {...register("user_password", {
-                        required: {
-                          value: true,
-                          message: "Password is required",
-                        },
-                        onChange: (e) => setPassword(e.target.value),
-                      })}
+                        {...register("user_password", {
+                            required: {
+                                value: true,
+                                message: "Password is required",
+                            },
+                            onChange: (e) => setPassword(e.target.value),
+                        })}
                         type="password" id="user_password" name='user_password' className="rounded-md p-2.5 text-md opacity-60" placeholder="******" />
-                         {
+                    {
                         errors.user_password && <p className='text-red-500'>{errors.user_password.message}</p>
                     }
                     <label htmlFor="confirmPassword" className='font-semibold opacity-70'>Confirm password: </label>
@@ -97,7 +98,6 @@ function RegisterForm() {
                     }
                     <hr />
                     <button type='submit' className='rounded-md p-2.5 text-md bg-gray-900 text-white hover:bg-gray-800'>Registrar</button>
-
 
                 </form>
             </div>
@@ -126,7 +126,7 @@ function RegisterForm() {
                         : <p>Confirm password:
                             {
                                 confirmPassword === password
-                                    ? <span className='mx-1 text-green-300'> Password coincide {"'" + confirmPassword + "'"}</span>
+                                    ? <span className='mx-1 text-green-300'> Password coincide <br /> {"'" + confirmPassword + "'"}</span>
                                     : <span className='text-red-500 mx-1'>Password no coincide</span>
                             }
                         </p>
