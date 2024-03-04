@@ -8,19 +8,39 @@ import { useForm } from 'react-hook-form';
 export default function ListUser({ users }: { users: Users }) {
   const router = useRouter();
   const { register, handleSubmit, reset, formState: { errors } } = useForm<UserFormData>();
-  const [isEdit, setIsEdit] = useState(false);
+  const [isEdit, setIsEdit] = useState<boolean | null>(false);
   const [userIdToEdit, setUserIdToEdit] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleEditButton = (user: User) => {
-    setIsEdit(true);
-    setUserIdToEdit(user.user_id.toString());
-    setName(user.user_name);
-    setEmail(user.user_email);
-    setPassword(user.user_password);
-  };
+    setIsEdit(!isEdit);
+    if (isEdit == true) {
+
+      if (userIdToEdit === user.user_id.toString()) {
+        setIsEdit(false);
+        setName(user.user_name)
+        setEmail(user.user_email)
+        setPassword(user.user_password)
+        setUserIdToEdit(user.user_id.toString())
+      }
+      else {
+        setIsEdit(true);
+        setName(user.user_name)
+        setEmail(user.user_email)
+        setPassword(user.user_password)
+        setUserIdToEdit(user.user_id.toString())
+      }
+    }
+    reset()
+    setName(user.user_name)
+    setEmail(user.user_email)
+    setPassword(user.user_password)
+    setUserIdToEdit(user.user_id.toString())
+
+    console.log(user)
+  }
 
   const onSubmit = handleSubmit(async (data: UserFormData) => {
     const res = await fetch(`/api/users/${userIdToEdit}`, {
@@ -31,7 +51,7 @@ export default function ListUser({ users }: { users: Users }) {
       }
     });
     reset();
-    setIsEdit(!isEdit);
+    setIsEdit(false);
     const resJSON = await res.json();
     console.log(resJSON);
     router.refresh();
@@ -39,32 +59,7 @@ export default function ListUser({ users }: { users: Users }) {
 
   return (
     <>
-      {users.map((user, index) => (
-        <ul className="w-full" key={user.user_id}>
-          <li className="flex gap-2">
-            <div>
-              <p>{index + 1}.</p>
-            </div>
-            <div>
-              <p>{user.user_id}</p>
-              <p>Name: {user.user_name}</p>
-              <p>Email: {user.user_email}</p>
-              <p>Password: {user.user_password}</p>
-              <p>{user.user_created_on.toString()}</p>
-              <p>{user.user_updated_at.toString()}</p>
-              <div className="flex gap-2">
-                <DeleteButton user_id={user.user_id} />
-                <button
-                  onClick={() => handleEditButton(user)}
-                  className="bg-teal-500 w-full p-2 text-sm font-medium rounded-md">
-                  Edit
-                </button>
-              </div>
-            </div>
-          </li>
-        </ul>
-      ))}
-      {isEdit && (
+      {isEdit == true && (
         <form onSubmit={onSubmit}>
           <input type="hidden" name="user_id" value={userIdToEdit} />
           <div className="flex gap-2 m-4">
@@ -119,9 +114,35 @@ export default function ListUser({ users }: { users: Users }) {
             />
           </div>
           <button type="submit" className="w-full bg-teal-500 mt-3 p-2 text-sm font-medium rounded-md">Update user</button>
-          <button type="button" onClick={() => setIsEdit(!isEdit)} className="w-full bg-slate-500 mt-3 p-2 text-sm font-medium rounded-md">Cancel</button>
+          <button type="button" onClick={() => setIsEdit(false)} className="w-full bg-slate-500 mt-3 p-2 text-sm font-medium rounded-md">Cancel</button>
         </form>
       )}
+
+      {users.map((user, index) => (
+        <ul className="w-full" key={user.user_id}>
+          <li className="flex gap-2">
+            <div>
+              <p>{index + 1}.</p>
+            </div>
+            <div>
+              <p>{user.user_id}</p>
+              <p>Name: {user.user_name}</p>
+              <p>Email: {user.user_email}</p>
+              <p>Password: {user.user_password}</p>
+              <p>{user.user_created_on.toString()}</p>
+              <p>{user.user_updated_at.toString()}</p>
+              <div className="flex gap-2">
+                <DeleteButton user_id={user.user_id} />
+                <button
+                  onClick={() => { handleEditButton(user), setUserIdToEdit(user.user_id.toString()) }}
+                  className={` ${isEdit && userIdToEdit === user.user_id.toString() ? 'bg-slate-500' : 'bg-teal-500'} w-full p-2 text-sm font-medium rounded-md`}>
+                  {isEdit && userIdToEdit === user.user_id.toString() ? "Editing..." : "Edit"}
+                </button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      ))}
     </>
   );
 }
