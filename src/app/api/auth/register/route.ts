@@ -4,7 +4,6 @@ import { type User } from "@/app/types/user";
 export async function POST(request: Request) {
     const data: User = await request.json();
 
-
     const userFoundByEmail = await db.users.findUnique({
         where: {
             user_email: data.user_email

@@ -18,13 +18,15 @@ export default function ListUser({ users }: { users: Users }) {
     setIsEdit(!isEdit);
     if (isEdit == true) {
 
+      //si damos click de nuevo en editar de un usuario elegido, se cierra el form
       if (userIdToEdit === user.user_id.toString()) {
         setIsEdit(false);
-        setName(user.user_name)
-        setEmail(user.user_email)
-        setPassword(user.user_password)
-        setUserIdToEdit(user.user_id.toString())
+        setName("")
+        setEmail("")
+        setPassword("")
+        setUserIdToEdit("")
       }
+      //si el id del usuario que estamos focus es distinto al del usuario elegido, el form permance abierto
       else {
         setIsEdit(true);
         setName(user.user_name)
@@ -33,6 +35,7 @@ export default function ListUser({ users }: { users: Users }) {
         setUserIdToEdit(user.user_id.toString())
       }
     }
+    //cargamos los datos al abrir y cerrar el form
     reset()
     setName(user.user_name)
     setEmail(user.user_email)
