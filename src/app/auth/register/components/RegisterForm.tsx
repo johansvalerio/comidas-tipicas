@@ -17,7 +17,7 @@ function RegisterForm() {
 
     const onSubmit = handleSubmit(async (data: UserFormData) => {
         console.log(data)
-        const res = await fetch('/api/register', {
+        const res = await fetch('/api/auth/register', {
             method: 'POST',
             body: JSON.stringify({
                 user_name: data.user_name,

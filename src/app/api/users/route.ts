@@ -4,7 +4,7 @@ import { type Users, User } from "@/app/types/user";
 
 export async function GET() {
     const users: Users = await db.users.findMany();
-    console.log(JSON.stringify(users))
+    //console.log(JSON.stringify(users))
     return NextResponse.json(users);
 }
 

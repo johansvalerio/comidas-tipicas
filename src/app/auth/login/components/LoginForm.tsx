@@ -1,14 +1,18 @@
 "use client"
 import { useState } from 'react'
+import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 function LoginForm() {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const router = useRouter()
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    
+
     const data = new FormData()
 
     const email = event.currentTarget.email.value
@@ -20,6 +24,26 @@ function LoginForm() {
     setPassword(password)
 
     console.log("Email:" + data.get('email'), "Password:" + data.get('password'))
+
+    const res = await signIn('credentials', {
+      redirect: false,
+      email: data.get('email'),
+      password: data.get('password'),
+
+    })
+
+    console.log(res)
+    if (res?.error) {
+      console.log("Error al iniciar sesión")
+      router.push('/auth/login')
+      router.refresh()
+    }
+    else {
+      console.log("Iniciando sesión")
+      router.push('/')
+      router.refresh()
+    }
+
   }
 
   return (
@@ -46,14 +70,14 @@ function LoginForm() {
       <div className='w-full max-w-sm text-white'>
         {
           !email
-          ? <p>Email: <span className='text-teal-500 mx-1'>Ingresa el email</span></p>
-          : <p>Email: <span className='mx-1'>{email}</span></p>
+            ? <p>Email: <span className='text-teal-500 mx-1'>Ingresa el email</span></p>
+            : <p>Email: <span className='mx-1'>{email}</span></p>
         }
-        
+
         {
           !password
-          ? <p>Password: <span className='text-teal-500 mx-1'>Ingresa el password</span></p>
-          : <p>Password: <span className='mx-1'>{password}</span></p>
+            ? <p>Password: <span className='text-teal-500 mx-1'>Ingresa el password</span></p>
+            : <p>Password: <span className='mx-1'>{password}</span></p>
         }
       </div>
     </div>
