@@ -9,14 +9,11 @@ async function Menu() {
     return (
 
         <nav className="flex justify-between items-center bg-gray-950 text-white px-24 py-3">
-            <h1 className="text-xl font-bold">NextAuth</h1>
+            <Link href={"/"} className="text-xl font-bold">NextAuth</Link>
 
             <ul className="flex gap-x-2">
                 {!session?.user ? (
                     <>
-                        <li>
-                            <Link href="/">Home</Link>
-                        </li>
                         <li>
                             <Link href="/auth/login">Login</Link>
                         </li>
@@ -27,7 +24,10 @@ async function Menu() {
                 ) : (
                     <>
                         <li>
-                            <Link href="/dashboard">Dashboard</Link>
+                            <Link href="/users/miperfil">
+                                {session?.user?.name}
+                            </Link>
+
                         </li>
                         <li>
                             <Link href="/api/auth/signout">Logout</Link>
