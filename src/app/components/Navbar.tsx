@@ -4,21 +4,21 @@ import { getServerSession, Session } from "next-auth";
 
 async function Menu() {
     const session: Session | null = await getServerSession(authOptions);
-    console.log(session?.user);
+    //console.log(session?.user);
 
     return (
 
-        <nav className="w-full flex justify-between items-center bg-gray-950 text-white md:px-24 px-10 py-3 fixed">
-            <Link href={"/"} className="text-xl font-bold">LA CASONA DEL TAMAL</Link>
+        <nav className="w-full flex justify-between items-center bg-black/60 text-white md:px-24 px-10 py-3 fixed z-10 border-zinc-900 border-b">
+            <Link href={"/"} className="text-xl font-bold">EL TAMALITO</Link>
 
-            <ul className="flex gap-x-5">
+            <ul className="flex gap-5">
                 {!session?.user ? (
                     <>
                         <li>
-                            <Link href="/auth/login">Login</Link>
+                            <Link href="/auth/login">Iniciar sesión</Link>
                         </li>
                         <li>
-                            <Link href="/auth/register">Register</Link>
+                            <Link href="/auth/register">Registrarse</Link>
                         </li>
                     </>
                 ) : (

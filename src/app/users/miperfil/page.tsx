@@ -8,7 +8,7 @@ async function MiPerfil() {
     let users: Users = []
 
     if (session) {
-        
+
         const currentUser = await db.users.findUnique({
             where: {
                 user_email: session?.user?.email as string // Suponiendo que user_email es el identificador único del usuario
@@ -25,7 +25,7 @@ async function MiPerfil() {
     }
 
     return (
-        <div className="w-full h-screen flex flex-col items-center">
+        <div className="w-full h-screen flex flex-col justify-center items-center">
             <h1>Mi Perfil</h1>
             {users.map((user) => (
                 <div key={user.user_id}>

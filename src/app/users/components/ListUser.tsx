@@ -61,7 +61,7 @@ export default function ListUser({ users }: { users: Users }) {
   });
 
   return (
-    <>
+    <div>
       {isEdit == true && (
         <form onSubmit={onSubmit}>
           {/* <input type="hidden" name="user_id" value={userIdToEdit} /> */}
@@ -146,6 +146,6 @@ export default function ListUser({ users }: { users: Users }) {
         </li>
       </ul>
       ))}
-    </>
+    </div>
   );
 }

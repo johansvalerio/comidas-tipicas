@@ -17,8 +17,8 @@ export default async function UsersPage() {
 
   return (
     <main className=" w-full min-h-screen flex items-center justify-center ">
-      <div className='flex justify-center'>
-        <div className='w-full max-w-sm flex justify-center mx-auto'>
+      <div className='flex py-24'>
+        <div className='w-full'>
           <RegisterForm />
         </div>
         <div className='w-full'>

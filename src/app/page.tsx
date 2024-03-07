@@ -8,11 +8,12 @@ export default function Home() {
         <Header />
       </header>
 
-      <section id='banner'>
+      <section id='comidas'>
         
       </section>
+
       <section>
-        <div className='w-full h-screen bg-slate-900'></div>
+        <div className='w-full h-screen bg-zinc-950'></div>
       </section>
 
       <footer>
