@@ -1,5 +1,5 @@
 
-import { getDomUsers } from "@/app/api/users/[id]/route"
+import { SEARCH } from "@/app/api/users/[id]/route"
 import { type User } from "@/app/types/user"
 import DeleteButton from "@/app/users/components/DeleteButton"
 
@@ -11,7 +11,7 @@ interface Params {
 export default async function Page({params}: Params) {
     console.log(params.id)
     //para renderizar data
-     const res = await getDomUsers({params: {id: params.id}})
+    const res = await SEARCH({params: {id: params.id}})
     const users = await res.json()
     console.log(users)
 

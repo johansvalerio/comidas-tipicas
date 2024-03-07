@@ -5,6 +5,7 @@ import { type Users } from "@/app/types/user"
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession, Session } from "next-auth";
 import { redirect } from 'next/navigation'
+import SearchInput from './components/SearchInput';
 
 export default async function UsersPage() {
   const session: Session | null = await getServerSession(authOptions);
@@ -16,8 +17,11 @@ export default async function UsersPage() {
   const users: Users = await (await GET()).json()
 
   return (
-    <main className=" w-full min-h-screen flex items-center justify-center ">
-      <div className='flex py-24'>
+    <main className=" w-full min-h-screen flex flex-col items-center justify-center py-24 gap-10">
+      
+      <SearchInput />
+      
+      <div className='flex'>
         <div className='w-full'>
           <RegisterForm />
         </div>
@@ -25,6 +29,7 @@ export default async function UsersPage() {
           <ListUser users={users} />
         </div>
       </div>
+
     </main>
   );
 }

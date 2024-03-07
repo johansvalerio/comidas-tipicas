@@ -8,19 +8,30 @@ interface Params {
     }
 }
 // Métodos específicos de los usuarios
-// [Método get user by id]
-export async function getDomUsers({params }: Params) {
+// Método para buscar usuario por nombre y por id
+export async function SEARCH({ params }: Params) {
     console.log("Getting user..." + params.id)
-    const user = await db.users.findFirst({
+    const userByName = await db.users.findFirst({
+        where: {
+            user_name: params.id
+        }
+    })
+
+    if (userByName) {
+        return NextResponse.json(userByName);
+    } else {
+         const userById = await db.users.findFirst({
         where: {
             user_id: Number(params.id)
         }
     })
-    console.log("Got user: " + JSON.stringify(user))
-    return NextResponse.json(user);
+    return NextResponse.json(userById);
+    }
+
 }
+
 //Api user data method by id
-export async function GET(request: Request, {params }: Params) {
+export async function GET(request: Request, { params }: Params) {
     console.log("Getting user..." + params.id)
     const user = await db.users.findFirst({
         where: {
@@ -44,7 +55,7 @@ export async function DELETE(request: Request, { params }: Params) {
 }
 
 //[[Método update user by id]]
-export async function PUT(request: Request , { params }: Params) {
+export async function PUT(request: Request, { params }: Params) {
     const data: User = await request.json()
     console.log("Updating user_id: " + params.id)
     const userUpdated = await db.users.update({
