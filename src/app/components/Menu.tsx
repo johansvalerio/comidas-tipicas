@@ -8,10 +8,10 @@ async function Menu() {
 
     return (
 
-        <nav className="flex justify-between items-center bg-gray-950 text-white px-24 py-3">
-            <Link href={"/"} className="text-xl font-bold">NextAuth</Link>
+        <nav className="w-full flex justify-between items-center bg-gray-950 text-white md:px-24 px-10 py-3 fixed">
+            <Link href={"/"} className="text-xl font-bold">LA CASONA DEL TAMAL</Link>
 
-            <ul className="flex gap-x-2">
+            <ul className="flex gap-x-5">
                 {!session?.user ? (
                     <>
                         <li>
