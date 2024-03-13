@@ -2,7 +2,13 @@ import { NextResponse } from "next/server";
 import  db from "@/libs/db";
 import { type Users, User } from "@/app/types/user";
 
+interface Params {
+    params: {
+        id: string
+    }
+}
 export async function GET() {
+    
     const users: Users = await db.users.findMany();
     //console.log(JSON.stringify(users))
     return NextResponse.json(users);

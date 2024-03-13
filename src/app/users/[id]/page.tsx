@@ -1,5 +1,5 @@
 
-import { SEARCH } from "@/app/api/users/[id]/route"
+ import { SEARCH } from "@/app/api/users/[id]/route"
 import { type User } from "@/app/types/user"
 import DeleteButton from "@/app/users/components/DeleteButton"
 

@@ -2,7 +2,7 @@ import Image from "next/image"
 
 export default function Header() {
   return (
-    <div className="bg-[url('/tamales3-banner.jpg')] w-full h-[300px] lg:h-[450px] xl:h-screen
+    <div className="bg-[url('/tamales3-banner.jpg')] w-full h-[300px] md:h-[450px] lg:h-[600px] xl:h-screen
             bg-no-repeat bg-cover ">
 
           <div className="w-full h-full flex flex-col justify-center items-center gap-1">
