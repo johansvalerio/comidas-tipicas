@@ -1,7 +1,5 @@
-
- import { SEARCH } from "@/app/api/users/[id]/route"
-import { type User } from "@/app/types/user"
-import DeleteButton from "@/app/users/components/DeleteButton"
+import { SEARCH } from "@/app/api/users/[id]/route"
+import DeleteButton from "@/app/users/searchUser/components/DeleteButton"
 
 interface Params {
    params:{

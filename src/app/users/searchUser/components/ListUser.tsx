@@ -2,11 +2,11 @@
 import { type Users, type User, type UserFormData } from "@/app/types/user";
 import DeleteButton from "./DeleteButton";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import { useForm } from 'react-hook-form';
 
-export default function ListUser({ users }: { users: Users }) {
-  const router = useRouter();
+export default function ListUser({ users, updateUserList }: { users: Users, updateUserList: Function }) {
+
   const { register, handleSubmit, reset, formState: { errors } } = useForm<UserFormData>();
   const [isEdit, setIsEdit] = useState<boolean | null>(false);
   const [userIdToEdit, setUserIdToEdit] = useState("");
@@ -53,11 +53,12 @@ export default function ListUser({ users }: { users: Users }) {
         'Content-Type': 'application/json'
       }
     });
-    reset();
+   
+    await updateUserList(); // Llamada a la función para actualizar la lista de usuarios en SearchUser
     setIsEdit(false);
-    const resJSON = await res.json();
+    const resJSON = await res.json()
     console.log(resJSON);
-    router.refresh();
+    
   });
 
   return (

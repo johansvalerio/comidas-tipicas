@@ -1,5 +1,4 @@
 "use client"
- //import { DELETE as deleteUser } from "@/app/api/users/[id]/route"
  import { useRouter } from "next/navigation"
 export default function DeleteButton({user_id}: { user_id: number }) {
 

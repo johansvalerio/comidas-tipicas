@@ -1,12 +1,8 @@
 import { NextResponse } from "next/server";
 import  db from "@/libs/db";
-import { type Users, User } from "@/app/types/user";
+import { type Users } from "@/app/types/user";
+import { redirect } from "next/navigation";
 
-interface Params {
-    params: {
-        id: string
-    }
-}
 export async function GET() {
     
     const users: Users = await db.users.findMany();
@@ -15,35 +11,41 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-    const data: User = await request.json();
+    try {
+        const { value } = await request.json();
+        console.log(value);
 
+        // Busca usuarios por su nombre
+        const userByName = await db.users.findMany({  //USAR FINDMANY PARA HACER BUSSQUEDAS AUTOMÁTICAS
+            where: {
+                user_name: {
+                    contains: value // Usa 'contains' en lugar de 'startsWith' y 'endsWith'
+                }
+            }
+        });
 
-    const userFoundByEmail = await db.users.findUnique({
-        where: {
-            user_email: data.user_email
+        console.log(userByName);
+
+        if (userByName) {
+            return NextResponse.json(userByName)
+            
+        } else {
+            // Si no se encuentra por nombre, intenta buscar por ID
+            const userById = await db.users.findFirst({
+                where: {
+                    user_id: parseInt(value) // Parsea el nombre de usuario a un número
+                }
+            });
+
+            if (userById) {
+                return NextResponse.json(userById);
+            } else {
+                // Si no se encuentra ningún usuario, devuelve un mensaje de error
+                return NextResponse.json({ error: "Error al buscar usuario" }, { status: 500 });
+            }
         }
-    })
-    
-    const userFoundByName = await db.users.findUnique({
-        where: {
-            user_name: data.user_name
-        }
-    })
-
-    if (userFoundByEmail) {
-        return NextResponse.json({ error: "User email already exists" }, { status: 400 });
+    } catch (error) {
+        console.error(error);
+        return NextResponse.json({ error: "Error al buscar usuario" }, { status: 500 });
     }
-
-    if (userFoundByName) {
-        return NextResponse.json({ error: "Username already exists" }, { status: 400 });
-    }
-
-    console.log(data);
-    const newUser: User = await db.users.create({
-        data
-    })
-
-    console.log("User created: " + JSON.stringify(newUser));
-
-    return NextResponse.json(newUser);
 }
