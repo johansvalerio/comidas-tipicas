@@ -2,7 +2,6 @@
 import { type Users, type User, type UserFormData } from "@/app/types/user";
 import DeleteButton from "./DeleteButton";
 import { useState } from "react";
-import { redirect } from "next/navigation";
 import { useForm } from 'react-hook-form';
 
 export default function ListUser({ users, updateUserList }: { users: Users, updateUserList: Function }) {

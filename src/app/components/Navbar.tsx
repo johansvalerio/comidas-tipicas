@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { getServerSession, Session } from "next-auth";
+import { getServerSession, type Session } from "next-auth";
 
 async function Menu() {
     const session: Session | null = await getServerSession(authOptions);

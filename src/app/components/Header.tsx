@@ -10,9 +10,10 @@ export default function Header() {
             <h1 className="text-5xl font-bold bg-black/80 py-4 px-10">EL TAMALITO</h1>
             <div className='flex gap-2 my-5'>
               <button className='bg-stone-50 flex items-center gap-1 text-black font-semibold p-2 rounded-lg hover:bg-stone-200'>Ordenar ahora
-              <Image src="/tamal-icon.png" alt="tamales2-icon" className="rotate-6" width={25} height={25} />
+              <Image src="/tamal-icon.png" alt="tamales2-icon" className="rotate-6" width={25} height={25}
+              loading="lazy" />
               </button>
-             <button className='bg-gray-950 text-white px-6 py-2 rounded-lg font-medium hover:bg-gray-900'>Comidas</button>
+             <a  href="#comidas" className='bg-gray-950 text-white px-6 py-2 rounded-lg font-medium hover:bg-gray-900'>Comidas</a>
             </div>
              
           </div>

@@ -78,7 +78,7 @@ export default function AutomaticSearch() {
         <Loading />
       }
       {isError && <p>No se encontraron usuarios.</p>}
-      <ListUser users={users} updateUserList={updateUserList} /> {/* Pasar la función como prop */}
+      <ListUser users={users} updateUserList={updateUserList} /> {/* Pasar la función como prop para refrescar la lista de usuarios */}
     </div>
   );
 }

@@ -1,4 +1,6 @@
 import Header from '@/app/components/Header'
+import Comidas from '@/app/components/Comidas'
+
 
 export default function Home() {
 
@@ -8,8 +10,8 @@ export default function Home() {
         <Header />
       </header>
 
-      <section id='comidas'>
-        
+      <section id='comidas' className='p-24 bg-zinc-900'>
+        <Comidas />
       </section>
 
       <section>
