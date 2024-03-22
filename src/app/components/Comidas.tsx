@@ -1,39 +1,45 @@
+/* eslint-disable @next/next/no-img-element */
 "use client"
 import Image from "next/image";
 import { useState } from "react";
 
-const comidasTipicas = [
+interface ComidasProps {
+    name: string;
+    precio: string;
+    description: string;
+    img: string;
+}
+
+const comidasTipicas: ComidasProps[] = [
     {
         name: "Arroz de maíz",
-        precio: "₡ 100",
-        description: "Arroz de maíz con pollo",
-        img: "/tamales3-banner.jpg"
+        precio: "₡ 2500",
+        description: "Arroz de maíz en tasa de entero",
+        img: "/img/arrozmaiz.jpg"
     },
-
     {
         name: "Tamales",
-        precio: "₡ 100",
-        description: "Tamales de cerdo y pollo",
-        img: "/tamales2-banner.jpg"
-
+        precio: "₡ 1200",
+        description: "Piña de tamales de cerdo o pollo",
+        img: "/img/tamales.jpg"
     },
-
     {
         name: "Escabeche",
-        precio: "₡ 100",
-        description: "Escabeche de la casa",
-        img: "/tamales-banner.jpg"
+        precio: "₡ 2500",
+        description: "Escabeche en tasa de entero",
+        img: "/img/escabeche.jpg"
     },
-
-    , {
+    {
         name: "Frito",
-        precio: "₡ 100",
-        description: "Frito de cerdo",
-        img: "/tamales-banner.jpg"
+        precio: "₡ 2500",
+        description: "Frito en tasa de entero",
+        img: "/img/frito.jpg"
     }
-]
+];
+
 
 export default function Comidas() {
+    
     const [isClicked, setIsClicked] = useState(false);
     const [comida, setComida] = useState("");
     const [img, setImg] = useState("");
@@ -42,7 +48,7 @@ export default function Comidas() {
     const [isHover, setIsHover] = useState(false);
     const [isActive, setIsActive] = useState("");
 
-    const handleClick = (comidasTipicas: any) => {
+    const handleClick = (comidasTipicas: ComidasProps) => {
         setIsClicked(!isClicked);
         setComida(comidasTipicas.name)
         setImg(comidasTipicas.img)
@@ -65,14 +71,14 @@ export default function Comidas() {
 
     return (
         <div>
-            <div className="flex md:items-center gap-4  md:text-start mb-10">
+            <div className="flex md:items-center gap-4 md:text-start mb-10">
                 <h1 className='text-5xl font-bold text-white'>Comidas
                 </h1>
                 <Image src="/guanacaste.png" alt="Bandera Guanacaste" width={50} height={40} />
             </div>
 
             <div className="text-3xl md:flex md:justify-around mb-10">
-                {comidasTipicas.map((comida: any) => (
+                {comidasTipicas.map((comida: ComidasProps) => (
                     <h2 key={comida.name}
                         onClick={() => { handleClick(comida) }}
                         className={`relative transition duration-1000
@@ -90,14 +96,15 @@ export default function Comidas() {
                         {
                             isHover === true
                             && <div onMouseEnter={() => setIsHover(true)} className="z-10 absolute flex flex-col justify-center items-center gap-5 ">
-                                <h2 className="text-xl sm:text-3xl font-bold">{description}</h2>
+                                <h2 className="text-lg sm:text-3xl font-bold">{description}</h2>
                                 <h2 className="text-xl sm:text-3xl font-bold">Precio: {precio}</h2>
+                                <button className="bg-teal-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-teal-600">Ordenar</button>
                             </div>
 
 
                         }
-                        <Image src={img} alt={description} width={600} height={300} loading="lazy"
-                            className={`rounded-lg transition ease-linear ${isHover === true ? "opacity-40" : "opacity-100"}`}
+                        <img src={img} alt="Tamales"
+                            className={`rounded-lg transition ease-linear w-[600px] h-[400px] object-cover ${isHover === true ? "opacity-40" : "opacity-100"}`}
                             onMouseEnter={() => setIsHover(true)}
                             onMouseLeave={() => setIsHover(false)} />
                     </div>

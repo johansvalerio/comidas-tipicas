@@ -1,5 +1,6 @@
-import Header from '@/app/components/Header'
-import Comidas from '@/app/components/Comidas'
+import Header from './components/Header'
+import Comidas from './components/Comidas'
+import OrdenarForm from './components/OrdenarForm';
 
 
 export default function Home() {
@@ -14,8 +15,8 @@ export default function Home() {
         <Comidas />
       </section>
 
-      <section>
-        <div className='w-full h-screen bg-zinc-950'></div>
+      <section id='ordenarForm' className='p-24 bg-zinc-950'>
+        <OrdenarForm />
       </section>
 
       <footer>
