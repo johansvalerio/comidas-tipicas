@@ -38,7 +38,7 @@ const comidasTipicas: ComidasProps[] = [
 ];
 
 
-export default function Comidas() {
+export default function ComidasView() {
     
     const [isClicked, setIsClicked] = useState(false);
     const [comida, setComida] = useState("");

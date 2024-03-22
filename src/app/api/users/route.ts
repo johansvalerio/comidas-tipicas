@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import  db from "@/libs/db";
 import { type Users } from "@/app/types/user";
-import { redirect } from "next/navigation";
 
 export async function GET() {
     

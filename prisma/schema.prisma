@@ -43,9 +43,9 @@ model orders {
   order_comment    String
   order_status     String
   order_total      Float
-  order_items      String[]
   user_id          Int      @unique
   comida_id        Int      @unique
+  order_quantity   Int
   comida           comidas  @relation(fields: [comida_id], references: [comida_id])
   user             users    @relation(fields: [user_id], references: [user_id])
 }
