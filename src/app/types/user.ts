@@ -1,3 +1,4 @@
+import { type Order } from "./order"
 export type Users = User[]
 
 export interface User {
@@ -7,6 +8,8 @@ export interface User {
   user_created_on: Date
   user_updated_at: Date
   user_email: string
+
+  order: Order
 }
 
 export interface UserFormData {

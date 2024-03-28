@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 import db from "@/libs/db";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { getServerSession, Session } from "next-auth";
+import { getServerSession, type Session } from "next-auth";
 
 
 export async function POST(request: Request) {
 
-    const session = await getServerSession(authOptions)
+    const session: Session | null = await getServerSession(authOptions)
 
     const user = await db.users.findUnique({
         where: {
@@ -22,7 +22,7 @@ export async function POST(request: Request) {
         }
     })
 
-    const precio = Number(comidaPrecio?.comida_price) * Number(data.order_quantity)
+    const precioFinal = Number(comidaPrecio?.comida_price) * Number(data.order_quantity)
 
 
     const newOrder = await db.orders.create({
@@ -33,7 +33,7 @@ export async function POST(request: Request) {
             order_status: "Pendiente",
             user_id: Number(user?.user_id),
             comida_id: Number(data.comida_id),
-            order_total: Number(precio)
+            order_total: Number(precioFinal)
         }
     })
 
@@ -42,7 +42,12 @@ export async function POST(request: Request) {
 
 export async function GET() {
 
-    const orders = await db.orders.findMany()
+    const orders = await db.orders.findMany({
+        include: {
+            user: true,
+            comida: true
+        }
+    })
 
     return NextResponse.json(orders)
 }

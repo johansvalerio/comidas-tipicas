@@ -12,28 +12,32 @@ async function Menu() {
             <Link href={"/"} className="text-xl font-bold">EL TAMALITO</Link>
 
             <ul className="flex gap-5">
-                {!session?.user ? (
-                    <>
-                        <li>
-                            <Link href="/auth/login">Iniciar sesión</Link>
-                        </li>
-                        <li>
-                            <Link href="/auth/register">Registrarse</Link>
-                        </li>
-                    </>
-                ) : (
-                    <>
-                        <li>
-                            <Link href="/users/miperfil">
-                                {session?.user?.name}
-                            </Link>
+                {!session?.user
+                    ? (
+                        <>
+                            <li>
+                                <Link href="/auth/login">Iniciar sesión</Link>
+                            </li>
+                            <li>
+                                <Link href="/auth/register">Registrarse</Link>
+                            </li>
+                        </>
+                    ) : (
+                        <>
+                            <li>
+                                <Link href="/users/miperfil">
+                                    {session?.user?.name}
+                                </Link>
 
-                        </li>
-                        <li>
-                            <Link href="/api/auth/signout">Logout</Link>
-                        </li>
-                    </>
-                )}
+                            </li>
+                            <li className="text-center">
+                                <Link href="/users/orders">Ordenes</Link>
+                            </li>
+                            <li>
+                                <Link href="/api/auth/signout">Logout</Link>
+                            </li>
+                        </>
+                    )}
             </ul>
         </nav>
     );

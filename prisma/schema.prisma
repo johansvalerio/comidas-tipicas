@@ -14,7 +14,7 @@ model users {
   user_created_on DateTime @default(now())
   user_updated_at DateTime @updatedAt
   user_email      String   @unique
-  order           orders?
+  order           orders[]
   role            roles?
 }
 
@@ -32,7 +32,7 @@ model comidas {
   comida_price       Float
   comida_created_on  DateTime @default(now())
   comida_updated_at  DateTime @updatedAt
-  order              orders?
+  order              orders[]
 }
 
 model orders {
@@ -43,8 +43,8 @@ model orders {
   order_comment    String
   order_status     String
   order_total      Float
-  user_id          Int      @unique
-  comida_id        Int      @unique
+  user_id          Int       
+  comida_id        Int      
   order_quantity   Int
   comida           comidas  @relation(fields: [comida_id], references: [comida_id])
   user             users    @relation(fields: [user_id], references: [user_id])
