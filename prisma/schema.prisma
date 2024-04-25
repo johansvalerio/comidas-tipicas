@@ -15,12 +15,18 @@ model users {
   user_updated_at DateTime @updatedAt
   user_email      String   @unique
   order           orders[]
-  role            roles?
+  user_role       user_role?
 }
 
 model roles {
   role_id   Int    @id @default(autoincrement())
   role_name String @unique
+  user_role user_role[]
+}
+
+model user_role {
+  role_id   Int    
+  role      roles  @relation(fields: [role_id], references: [role_id])
   user_id   Int    @unique
   user      users  @relation(fields: [user_id], references: [user_id])
 }

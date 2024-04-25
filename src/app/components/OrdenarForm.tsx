@@ -6,6 +6,8 @@ export default function OrdenarForm({comidas}: {comidas: Comidas}) {
 
   const [submit, setSubmit] = useState(false)
   const [addComment, setAddComment] = useState(false)
+  const [comida, setComida] = useState<{ id: number; name: string }>({ id: 0, name: "" });
+
   //referenciamos el formulario para limpiarlo mediante la propiedad ref 
   //<form ref = {formRef}>
   const formRef = useRef<HTMLFormElement>(null)
@@ -17,6 +19,10 @@ export default function OrdenarForm({comidas}: {comidas: Comidas}) {
     if (!data.get('comida') || !data.get('quantity') || !data.get('direction')) {
       alert('Por favor completa todos los campos')
       return
+    }
+
+    if(!data.get('comment')) {
+      data.append('comment', 'No comments')
     }
 
     const res = await fetch('/api/orders', {
@@ -48,26 +54,47 @@ export default function OrdenarForm({comidas}: {comidas: Comidas}) {
   return (
     <div className="w-full flex-col flex md:flex-row justify-around items-center">
       <div >
-        {submit === true ? <h1 className="text-5xl">Gracias por ordenar!</h1> : null}
-          <h1 className="text-5xl">Ordenar!</h1>
+        {submit === true ? <h1 className="text-5xl">Gracias por ordenar!</h1> 
+        : <h1 className="text-5xl">Ordenar  <br />{comida.name}</h1>}
+          
       </div>
 
       <div>
         
-      <form className="flex flex-col gap-4 bg-white/90 py-7 px-5 rounded-md text-gray-500"
+      <form className="flex flex-col gap-4 bg-white py-7 px-5 rounded-md text-gray-500"
       onSubmit={handleSubmit}
       ref={formRef}>
-        <select name="comida" id="comida" className="border-2 border-black p-2 rounded-lg text-gray-500">
-        {comidas.map((comida) => (
-          <option key={comida.comida_id} value={comida.comida_id} className="text-black">{comida.comida_name} - ₡{comida.comida_price}</option>
-        ))}
-        </select>
+        <select
+  name="comida"
+  id="comida"
+  className="border-2 border-black p-2 rounded-lg text-gray-500"
+  onChange={(e) => {
+    const selectedComida = comidas.find(comida => comida.comida_id === parseInt(e.target.value, 10));
+    if (selectedComida) {
+      setComida({
+        id: selectedComida.comida_id,
+        name: selectedComida.comida_name
+      });
+    }
+  }}
+>
+  {comidas.map((comida) => (
+    <option
+      key={comida.comida_id}
+      value={comida.comida_id.toString()} // Cambiado de comida.comida_id a string
+      className="text-black"
+    >
+      {comida.comida_name} - ₡{comida.comida_price}
+    </option>
+  ))}
+</select>
+
         <input type="number" name="quantity" id="quantity" placeholder="Cantidad" className="border-2 border-black p-2 rounded-lg"/>
         <textarea id="direction" name="direction" placeholder="Dirección" className="border-2 border-black p-2 rounded-lg w-full max-h-20 min-h-20" />
         <p className="cursor-pointer flex" onClick={() => setAddComment(!addComment)}>
           {addComment === true 
-          ? <span className="flex"> Ocultar comentario <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  className="icon icon-tabler icons-tabler-outline icon-tabler-circle-minus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M9 12l6 0" /></svg> </span>
-        : <span className="flex"> Agregar comentario <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  className="icon icon-tabler icons-tabler-outline icon-tabler-circle-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M9 12h6" /><path d="M12 9v6" /></svg></span>  }
+          ? <span className="flex p-1.5 gap-1 bg-black rounded-full text-white"> Ocultar comentario <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  className="icon icon-tabler icons-tabler-outline icon-tabler-circle-minus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M9 12l6 0" /></svg> </span>
+        : <span className="flex p-1.5 gap-1 bg-black text-white rounded-full"> Agregar comentario <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  className="icon icon-tabler icons-tabler-outline icon-tabler-circle-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M9 12h6" /><path d="M12 9v6" /></svg></span>  }
         </p>
 
 

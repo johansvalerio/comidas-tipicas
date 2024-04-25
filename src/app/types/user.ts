@@ -1,4 +1,4 @@
-import { type Order } from "./order"
+import { user_role } from "@prisma/client"
 export type Users = User[]
 
 export interface User {
@@ -8,8 +8,7 @@ export interface User {
   user_created_on: Date
   user_updated_at: Date
   user_email: string
-
-  order: Order
+  user_role?: user_role | null
 }
 
 export interface UserFormData {

@@ -1,9 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import ComidasModalForm from "./ComidasModalForm";
 
 interface ComidasProps {
+    id: number;
     name: string;
     precio: string;
     description: string;
@@ -12,24 +14,28 @@ interface ComidasProps {
 
 const comidasTipicas: ComidasProps[] = [
     {
-        name: "Arroz de maíz",
-        precio: "₡ 2500",
-        description: "Arroz de maíz en tasa de entero",
-        img: "/img/arrozmaiz.jpg"
-    },
-    {
+        id: 1,
         name: "Tamales",
         precio: "₡ 1200",
         description: "Piña de tamales de cerdo o pollo",
         img: "/img/tamales.jpg"
     },
     {
+        id: 2,
         name: "Escabeche",
         precio: "₡ 2500",
         description: "Escabeche en tasa de entero",
         img: "/img/escabeche.jpg"
     },
     {
+        id: 3,
+        name: "Arroz de maíz",
+        precio: "₡ 2500",
+        description: "Arroz de maíz en tasa de entero",
+        img: "/img/arrozmaiz.jpg"
+    },
+    {
+        id: 4,
         name: "Frito",
         precio: "₡ 2500",
         description: "Frito en tasa de entero",
@@ -37,32 +43,49 @@ const comidasTipicas: ComidasProps[] = [
     }
 ];
 
-
 export default function ComidasView() {
     
     const [isClicked, setIsClicked] = useState(false);
     const [comida, setComida] = useState("");
+    const [id, setId] = useState(0);
     const [img, setImg] = useState("");
     const [description, setDescription] = useState("");
     const [precio, setPrecio] = useState("");
     const [isHover, setIsHover] = useState(false);
-    const [isActive, setIsActive] = useState("");
+    const [isFood, setIsFood] = useState("");
+    const [isOpen, setIsOpen] = useState(false);
+
+     // Establecer la información inicial para los tamales
+     useEffect(() => {
+        const tamales = comidasTipicas.find(comida => comida.name === "Tamales");
+        if (tamales) {
+            setComida(tamales.name);
+            setId(tamales.id);
+            setImg(tamales.img);
+            setDescription(tamales.description);
+            setPrecio(tamales.precio);
+            setIsFood(tamales.name);
+            setIsClicked(true);
+        }
+    }, []);
 
     const handleClick = (comidasTipicas: ComidasProps) => {
         setIsClicked(!isClicked);
         setComida(comidasTipicas.name)
+        setId(comidasTipicas.id)
         setImg(comidasTipicas.img)
         setDescription(comidasTipicas.description)
         setPrecio(comidasTipicas.precio)
-        setIsActive(comidasTipicas.name); // Actualiza el estado isActive al nombre de la comida seleccionada
+        setIsFood(comidasTipicas.name); // Actualiza el estado isActive al nombre de la comida seleccionada
+        
 
         if (isClicked === true) {
             if (comida !== comidasTipicas.name) {
                 setIsClicked(true);
-                setIsActive(comidasTipicas.name);
+                setIsFood(comidasTipicas.name);
 
             }else {
-                setIsActive("");
+                setIsFood("");
             }
         }else {
             setIsClicked(true);
@@ -83,7 +106,7 @@ export default function ComidasView() {
                         onClick={() => { handleClick(comida) }}
                         className={`relative transition duration-1000
                     text-3xl font-bold text-white text-center mb-5 cursor-pointer
-                    border-b-4 ${isActive === comida.name ? 'border-teal-500' : 'border-transparent hover:border-gray-200'}`}>
+                    border-b-4 ${isFood === comida.name ? 'border-teal-500' : 'border-transparent hover:border-gray-200'}`}>
                         {comida.name}
                     </h2>
                 ))}
@@ -98,12 +121,19 @@ export default function ComidasView() {
                             && <div onMouseEnter={() => setIsHover(true)} className="z-10 absolute flex flex-col justify-center items-center gap-5 ">
                                 <h2 className="text-lg sm:text-3xl font-bold">{description}</h2>
                                 <h2 className="text-xl sm:text-3xl font-bold">Precio: {precio}</h2>
-                                <button className="bg-teal-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-teal-600">Ordenar</button>
+                                <button onClick={() => setIsOpen(true)}
+                                className="bg-teal-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-teal-600">Ordenar</button>
                             </div>
-
-
                         }
-                        <img src={img} alt="Tamales"
+                        {
+                            isOpen === true
+                            && <div className="w-full h-screen flex flex-col justify-center items-center absolute z-10">
+                                <ComidasModalForm isOpen={isOpen} setIsOpen={setIsOpen} 
+                                comidaId={id} 
+                                comidaName={comida}/>
+                            </div>
+                        }
+                        <img src={img} alt={comida}
                             className={`rounded-lg transition ease-linear w-[600px] h-[400px] object-cover ${isHover === true ? "opacity-40" : "opacity-100"}`}
                             onMouseEnter={() => setIsHover(true)}
                             onMouseLeave={() => setIsHover(false)} />

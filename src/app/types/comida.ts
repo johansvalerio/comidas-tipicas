@@ -1,4 +1,4 @@
-import { type Order } from "./order"
+
 export type Comidas = Comida[]
 
 export interface Comida {
@@ -8,7 +8,5 @@ export interface Comida {
     comida_description: string,
     comida_created_on: Date,
     comida_updated_at: Date
-
-    order: Order
 }
 
