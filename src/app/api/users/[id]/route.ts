@@ -75,7 +75,7 @@ export async function DELETE(request: Request, { params }: Params) {
 
 //[[Método update user by id]]
 export async function PUT(request: Request, { params }: Params) {
-    const data: User = await request.json()
+    const data = await request.json()
     console.log("Updating user_id: " + params.id)
     const userUpdated = await db.users.update({
         data,

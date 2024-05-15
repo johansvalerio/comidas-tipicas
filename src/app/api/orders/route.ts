@@ -16,6 +16,8 @@ export async function POST(request: Request) {
 
     const data = await request.json()
 
+    console.log(data)
+
     const comida = await db.comidas.findUnique({
         where: {
             comida_id: Number(data.comida_id)
@@ -43,10 +45,35 @@ export async function GET() {
 
     const orders = await db.orders.findMany({
         include: {
-            user: true,
+            user: {
+                include: {
+                    user_role: {
+                        include: {
+                            role: true
+                        }
+                    }
+                }
+            },
             comida: true
         }
     })
 
     return NextResponse.json(orders)
+}
+
+export async function PATCH(request: Request) {
+
+    const data = await request.json()
+    
+    const newOrderStatus = await db.orders.update({
+        where: {
+            order_id: Number(data.order_id)
+        },
+        data: {
+            order_status: data.order_status
+        }
+    })
+
+    return NextResponse.json(newOrderStatus)
+    
 }

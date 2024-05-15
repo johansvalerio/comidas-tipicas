@@ -4,7 +4,13 @@ import { type Users } from "@/app/types/user";
 
 export async function GET() {
     
-    const users: Users = await db.users.findMany();
+    const users = await db.users.findMany(
+        {
+            include: {
+                user_role: true
+            }
+        }
+    );
     //console.log(JSON.stringify(users))
     return NextResponse.json(users);
 }

@@ -14,7 +14,11 @@ async function MiPerfil() {
                 user_email: session?.user?.email as string // Suponiendo que user_email es el identificador único del usuario
             },
             include: {
-                user_role: true,
+                user_role: {
+                    include: {
+                        role: true
+                    }
+                }
             }
         })
 
@@ -29,19 +33,18 @@ async function MiPerfil() {
 
     return (
         <div className="w-full h-screen flex flex-col justify-center items-center">
-            <h1>Mi Perfil</h1>
+            
             {users.map((user) => (
                 <div key={user.user_id}>
-                {session?.user?.name === user.user_name 
+                    <h1>Mi Perfil</h1>
+                {session?.user?.email === user.user_email 
                 ? <div>
                     <p>Current user: {user.user_name}</p>
                     <p>Email: {user.user_email}</p>
-                    <p>Role: {user.user_role?.role_id}</p>
+                    <p>Role: {user.user_role?.role?.role_name}</p>
                     <p>Created on: {user.user_created_on.toString()}</p>
                 </div>
-                
                     : <p>{user.user_name}</p>
-                    
                 }
                 </div>
             ))}

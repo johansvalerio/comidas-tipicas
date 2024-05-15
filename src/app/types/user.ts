@@ -1,4 +1,4 @@
-import { user_role } from "@prisma/client"
+import { roles, user_role } from "@prisma/client"
 export type Users = User[]
 
 export interface User {
@@ -8,7 +8,12 @@ export interface User {
   user_created_on: Date
   user_updated_at: Date
   user_email: string
-  user_role?: user_role | null
+  user_role?: UserWithRole | undefined | null
+}
+
+export interface UserWithRole {
+  user_role?: user_role | undefined | null
+  role?: roles | undefined | null
 }
 
 export interface UserFormData {

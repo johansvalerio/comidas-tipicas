@@ -93,20 +93,23 @@ export default function ComidasView() {
     }
 
     return (
-        <div>
+        <div className="">
             <div className="flex md:items-center gap-4 md:text-start mb-10">
                 <h1 className='text-5xl font-bold text-white'>Comidas
                 </h1>
-                <Image src="/guanacaste.png" alt="Bandera Guanacaste" width={50} height={40} />
+                <Image src="/guanacaste.png" alt="Bandera de Guanacaste" width={50} height={40} />
             </div>
 
             <div className="text-3xl md:flex md:justify-around mb-10">
                 {comidasTipicas.map((comida: ComidasProps) => (
                     <h2 key={comida.name}
                         onClick={() => { handleClick(comida) }}
-                        className={`relative transition duration-1000
+                        className={`relative transition duration-1000 
                     text-3xl font-bold text-white text-center mb-5 cursor-pointer
-                    border-b-4 ${isFood === comida.name ? 'border-teal-500' : 'border-transparent hover:border-gray-200'}`}>
+                    border-b-4 
+                    ${isFood === comida.name 
+                    ? 'border-choco-100 text-mud-50'
+                    : 'border-transparent hover:border-stone-50'}`}>
                         {comida.name}
                     </h2>
                 ))}
@@ -115,14 +118,14 @@ export default function ComidasView() {
             {
                 isClicked === true
                     ?
-                    <div className="flex flex-col items-center justify-center">
+                    <div className="flex flex-col items-center justify-center ease-linear">
                         {
                             isHover === true
                             && <div onMouseEnter={() => setIsHover(true)} className="z-10 absolute flex flex-col justify-center items-center gap-5 ">
                                 <h2 className="text-lg sm:text-3xl font-bold">{description}</h2>
                                 <h2 className="text-xl sm:text-3xl font-bold">Precio: {precio}</h2>
                                 <button onClick={() => setIsOpen(true)}
-                                className="bg-teal-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-teal-600">Ordenar</button>
+                                className="bg-choco-100 text-black px-6 py-2 rounded-lg border-2 border-black font-semibold hover:bg-choco-50 ease-in-out">Ordenar</button>
                             </div>
                         }
                         {

@@ -34,7 +34,7 @@ function RegisterForm() {
     })
 
     return (
-        <div className='w-full'>
+        <div className='w-full m-auto max-w-3xl p-24'>
             <h1 className='text-xl'>Registro de usuario</h1>
             <div className="w-full p-4 bg-slate-300 rounded-lg text-black">
                 <form

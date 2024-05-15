@@ -17,6 +17,9 @@ export const authOptions = {
         const userFound = await db.users.findUnique({
             where: {
                 user_email: credentials?.email
+            },
+            include: {
+                user_role: true
             }
         })
 
@@ -32,14 +35,31 @@ export const authOptions = {
             id: userFound.user_id,
             name: userFound.user_name,
             email: userFound.user_email,
+            role: userFound.user_role?.role_id
         }
       },
     }),
   ],
+  // callbacks: {
+  //   async session({ session, user }: any) {
+  //     console.log("User:", user); // Verifica el objeto user
+  
+  //     if (user) {
+  //       console.log("User role:", user.role); // Verifica la propiedad role del usuario
+  //       session.user.role = user.role; // Asegúrate de que user.role tenga la propiedad role
+  //     } else {
+  //       console.log("User is undefined");
+  //     }
+  
+  //     return session;
+  //   }
+  // },
   pages: {
     signIn: "/auth/login",
   }
 };
+
+
 
 const handler = NextAuth(authOptions);
 

@@ -6,6 +6,7 @@ export default  function ComidasModalForm({isOpen, setIsOpen, comidaId, comidaNa
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault()
         const data = new FormData(event.currentTarget)
+        console.log(JSON.stringify(data))
     
         if (!data.get('quantity') || !data.get('direction')) {
           alert('Por favor completa todos los campos')
@@ -62,11 +63,13 @@ export default  function ComidasModalForm({isOpen, setIsOpen, comidaId, comidaNa
                 <textarea id="direction" name="direction" placeholder="Dirección" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-500 dark:placeholder-gray-400 dark:text-slate-900 max-h-20 min-h-20" required />
             </div>
             <div className="flex w-full items-center gap-2 py-4">
-        <button  className="bg-zinc-700 hover:bg-rose-500 text-white p-2 rounded" onClick={() => setIsOpen(false)}>Cancelar</button>
-        <button type="submit" className="bg-zinc-700 hover:bg-zinc-900 text-white p-2 rounded">Ordenar</button>
+        <button  className="bg-zinc-800 hover:bg-rose-600 hover:border-rose-600 text-white border-2
+         border-black p-2 rounded" onClick={() => setIsOpen(false)}>Cancelar</button>
+        <button type="submit" className="bg-choco-100 hover:bg-choco-50 border-2 border-black
+         text-black p-2 rounded font-medium">Confirmar</button>
         </div>
         </form>
-        
+    
     </div>
     }
    </div>

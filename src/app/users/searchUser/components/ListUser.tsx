@@ -13,6 +13,12 @@ export default function ListUser({ users, updateUserList }: { users: Users, upda
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const roles = {
+    'Admin': 'Admin',
+    'Cliente': 'Cliente'
+  }
+  
+
   const handleEditButton = (user: User) => {
     setIsEdit(!isEdit);
     if (isEdit == true) {
@@ -133,6 +139,11 @@ export default function ListUser({ users, updateUserList }: { users: Users, upda
                 <p>Name: {user.user_name}</p>
                 <p>Email: {user.user_email}</p>
                 <p>Password: {user.user_password}</p>
+                {
+                user.user_role?.role?.role_id === 1 && <p>Role: {roles.Admin} </p> || 
+                user.user_role?.role?.role_id === 2 && <p>Role: {roles.Cliente} </p> ||
+                <p>Role: No role</p>
+                }
                 <p>{user.user_created_on.toString()}</p>
                 <p>{user.user_updated_at.toString()}</p>
                 <div className="flex gap-2">
