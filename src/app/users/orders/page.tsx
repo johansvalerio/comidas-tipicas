@@ -11,7 +11,7 @@ export default async function page() {
     const session = await getServerSession(authOptions)
 
   return (
-    <div className="w-full h-screen flex justify-center p-24">
+    <div className="p-24 bg-zinc-950">
       <OrderList orders={orders} session={session}/>
     </div>
   )

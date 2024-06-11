@@ -10,6 +10,7 @@ export interface Order {
     order_comment: string,
     order_status: string,
     order_total: number,
+    order_created_on: Date,
     user_id: number,
     comida_id: number
  

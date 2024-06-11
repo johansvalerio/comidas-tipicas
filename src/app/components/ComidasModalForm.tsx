@@ -49,7 +49,7 @@ export default  function ComidasModalForm({isOpen, setIsOpen, comidaId, comidaNa
    <div>
     {
         isOpen === true 
-        && <div className="w-full max-w-sm p-4 flex flex-col gap-4 bg-white/80 border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-white dark:border-white">
+        && <div className="w-full max-w-sm p-4 flex flex-col gap-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-white dark:border-white">
         <form onSubmit={handleSubmit}
       ref={formRef}
         className="space-y-2">

@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import db from "@/libs/db";
 import { type User } from "@/app/types/user";
 export async function POST(request: Request) {
-    const data: User = await request.json();
+    const data = await request.json();
 
     const userFoundByEmail = await db.users.findUnique({
         where: {

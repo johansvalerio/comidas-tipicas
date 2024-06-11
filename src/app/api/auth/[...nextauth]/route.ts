@@ -40,20 +40,22 @@ export const authOptions = {
       },
     }),
   ],
-  // callbacks: {
-  //   async session({ session, user }: any) {
-  //     console.log("User:", user); // Verifica el objeto user
-  
-  //     if (user) {
-  //       console.log("User role:", user.role); // Verifica la propiedad role del usuario
-  //       session.user.role = user.role; // Asegúrate de que user.role tenga la propiedad role
-  //     } else {
-  //       console.log("User is undefined");
-  //     }
-  
-  //     return session;
-  //   }
-  // },
+  callbacks: {
+    session: async ({ session, token }: any) => {
+      if (session?.user) {
+        session.user.id = token.sub;// token.uid or token.sub both work
+        session.user.role = token.role
+      }
+      return session;
+    },
+    jwt: async ({ user, token }: any) => {
+      if (user) {
+        token.sub = user.id; // token.uid or token.sub both work
+        token.role = user.role
+      }
+      return token;
+    },
+  },
   pages: {
     signIn: "/auth/login",
   }

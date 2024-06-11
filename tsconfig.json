@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/auth/register/components/RegisterForm.jsx"],
+  "include": ["next-auth.d.ts",",next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/auth/register/components/RegisterForm.jsx"],
   "exclude": ["node_modules"]
 }

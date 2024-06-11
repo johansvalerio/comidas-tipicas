@@ -55,7 +55,7 @@ export default function OrdenarForm({ comidas }: { comidas: Comidas }) {
     <div className="w-full flex-col flex md:flex-row justify-evenly items-center">
       <div className="flex gap-2 items-center" >
         {submit === true ? <h1 className="text-5xl">Gracias por ordenar!</h1>
-          : <h1 className="text-7xl text-choco-200 font-bold">¡Pedí acá!  <br />{comida.name}</h1>} 
+          : <h1 className="text-7xl text-center text-choco-200 font-bold">¡Pedí acá!  <br />{comida.name}</h1>} 
       </div>
 
       <div>

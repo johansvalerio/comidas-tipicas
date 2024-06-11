@@ -108,7 +108,7 @@ export default function ComidasView() {
                     text-3xl font-bold text-white text-center mb-5 cursor-pointer
                     border-b-4 
                     ${isFood === comida.name 
-                    ? 'border-choco-100 text-mud-50'
+                    ? 'border-choco-100 text-choco-50'
                     : 'border-transparent hover:border-stone-50'}`}>
                         {comida.name}
                     </h2>

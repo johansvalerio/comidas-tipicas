@@ -13,9 +13,9 @@ export default async function Home() {
 
   return (
     <main className="w-full min-h-screen">
-      <header>
+      
         <Header />
-      </header>
+     
 
       <section id='comidas' className='p-24 bg-zinc-900 '>
         <ComidasView />
@@ -29,9 +29,6 @@ export default async function Home() {
         <OrdenarForm comidas={comidas} />
       </section>
 
-      <footer id='footer' className='bg-choco-400'>
-        <Footer />
-      </footer>
     </main>
   );
 }
