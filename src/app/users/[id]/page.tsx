@@ -6,6 +6,15 @@
 //        id: string
 //    }
 // }
+
+
+export default function Page() {
+  return (
+    <div>page</div>
+  )
+}
+
+
 // export default async function Page({params}: Params) {
 //     console.log(params.id)
 //     //para renderizar data
