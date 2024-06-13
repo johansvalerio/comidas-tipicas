@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import  db from "@/libs/db";
-import { type Users } from "@/app/types/user";
 
 export async function GET() {
     

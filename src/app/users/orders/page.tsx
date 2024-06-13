@@ -2,7 +2,7 @@ import OrderList from "./components/OrderList"
 import {GET} from "@/app/api/orders/route"
 import { type Orders } from "@/app/types/order"
 import { getServerSession } from "next-auth"
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import { authOptions } from "@/utils/authOptions"
 export default async function page() {
 
     const data = await GET()

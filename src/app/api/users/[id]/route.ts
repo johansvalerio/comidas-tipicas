@@ -10,29 +10,29 @@ interface Params {
 // Métodos específicos de los usuarios
 // Método para buscar usuario por nombre y por id
 //a través de la URL 
-export async function SEARCH({ params }: Params) {
-    console.log("Getting user..." + params.id)
-    const notSplit = params.id.replace(" ", "").replace("%20",  "")
-    console.log(notSplit)
-    const userByName = await db.users.findFirst({
-        where: {
-            user_name: {
-                contains: notSplit
-            }
-        }
-    })
+// export async function SEARCH({ params }: Params) {
+//     console.log("Getting user..." + params.id)
+//     const notSplit = params.id.replace(" ", "").replace("%20",  "")
+//     console.log(notSplit)
+//     const userByName = await db.users.findFirst({
+//         where: {
+//             user_name: {
+//                 contains: notSplit
+//             }
+//         }
+//     })
 
-    if (userByName) {
-        return NextResponse.json(userByName);
-    } else {
-         const userById = await db.users.findFirst({
-        where: {
-            user_id: Number(params.id)
-        }
-    })
-    return NextResponse.json(userById);
-     }
-}
+//     if (userByName) {
+//         return NextResponse.json(userByName);
+//     } else {
+//          const userById = await db.users.findFirst({
+//         where: {
+//             user_id: Number(params.id)
+//         }
+//     })
+//     return NextResponse.json(userById);
+//      }
+// }
 
 //Api user data method by id
 export async function GET(request: Request, { params }: Params) {
