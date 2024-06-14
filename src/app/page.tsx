@@ -1,7 +1,6 @@
 import Header from './components/Header'
 import ComidasView from './components/ComidasView'
 import OrdenarForm from './components/OrdenarForm';
-import Footer from './components/Footer'
 import db from "@/libs/db"
 import { type Comidas } from "@/app/types/comida"
 
