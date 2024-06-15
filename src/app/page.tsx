@@ -3,10 +3,12 @@ import ComidasView from './components/ComidasView'
 import OrdenarForm from './components/OrdenarForm';
 import db from "@/libs/db"
 import { type Comidas } from "@/app/types/comida"
-
+import { authOptions } from "@/utils/authOptions";
+import { Session, getServerSession } from "next-auth";
 
 export default async function Home() {
 
+  const session: Session | null = await getServerSession(authOptions)
   const comidas: Comidas = await db.comidas.findMany()
   
 
@@ -17,7 +19,7 @@ export default async function Home() {
      
 
       <section id='comidas' className='p-24 bg-zinc-900 '>
-        <ComidasView />
+        <ComidasView session={session} />
       </section>
 
       {/* <section id='origenes' className='p-24 bg-stone-200 h-screen'>

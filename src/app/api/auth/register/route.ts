@@ -26,9 +26,21 @@ export async function POST(request: Request) {
 
     console.log(data);
     const newUser: User = await db.users.create({
-        data
+        data:{
+            user_name: data.user_name.tolower(),
+            user_email: data.user_email.tolower(),
+            user_password: data.user_password
+        }
+    })
+
+    const roleUser = await db.user_role.create({
+        data: {
+            role_id: 2,
+            user_id: newUser.user_id
+        }
     })
 
     console.log("User created: " + JSON.stringify(newUser));
+    console.log("User role created: " + JSON.stringify(roleUser));
     return NextResponse.json(newUser);
 }

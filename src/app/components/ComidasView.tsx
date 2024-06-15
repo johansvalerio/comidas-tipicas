@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import ComidasModalForm from "./ComidasModalForm";
+import { Session } from "next-auth";
+import { signIn } from "next-auth/react";
 
 interface ComidasProps {
     id: number;
@@ -43,7 +45,7 @@ const comidasTipicas: ComidasProps[] = [
     }
 ];
 
-export default function ComidasView() {
+export default function ComidasView({session}: {session: Session | null}) {
     
     const [isClicked, setIsClicked] = useState(false);
     const [comida, setComida] = useState("");
@@ -124,14 +126,20 @@ export default function ComidasView() {
                             && <div onMouseEnter={() => setIsHover(true)} className="z-10 absolute flex flex-col justify-center items-center gap-5 ">
                                 <h2 className="text-lg sm:text-3xl font-bold">{description}</h2>
                                 <h2 className="text-xl sm:text-3xl font-bold">Precio: {precio}</h2>
-                                <button onClick={() => setIsOpen(true)}
+                              {
+                                !session ?  <button onClick={()=> signIn()}
+                                className="bg-choco-100 text-black px-6 py-2 rounded-lg border-2 border-black font-semibold hover:bg-choco-50 ease-in-out">Inicia sesión para ordenar</button>
+                                : <button onClick={() => !session ? setIsOpen(false) : setIsOpen(true)}
                                 className="bg-choco-100 text-black px-6 py-2 rounded-lg border-2 border-black font-semibold hover:bg-choco-50 ease-in-out">Ordenar</button>
+                              }
+                                
                             </div>
                         }
                         {
                             isOpen === true
                             && <div className="w-full h-screen flex flex-col justify-center items-center absolute z-10">
-                                <ComidasModalForm isOpen={isOpen} setIsOpen={setIsOpen} 
+                                <ComidasModalForm isOpen={isOpen} setIsOpen={setIsOpen}
+                                session={session} 
                                 comidaId={id} 
                                 comidaName={comida}/>
                             </div>
