@@ -41,7 +41,8 @@ async function MiPerfil() {
                 ? <div>
                     <p className="flex gap-1">Current user: <p className="capitalize">{user.user_name}</p></p>
                     <p>Email: {user.user_email}</p>
-                    <p>Role: {user.user_role?.role?.role_name}</p>
+                    {
+                        session?.user?.role === 1 && <p>Role: {user.user_role?.role?.role_name}</p>}
                     <p>Created on: {user.user_created_on.toString()}</p>
                 </div>
                     : <p>{user.user_name}</p>

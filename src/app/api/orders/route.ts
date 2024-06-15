@@ -23,7 +23,7 @@ export async function POST(request: Request) {
 
     const comida = await db.comidas.findUnique({
         where: {
-            comida_id: data.comida_id
+            comida_id: Number(data.comida_id)
         }
     })
 
@@ -31,7 +31,7 @@ export async function POST(request: Request) {
 
     const precioFinal = Number(comida?.comida_price) * Number(data.order_quantity)
 
-    console.log(precioFinal)
+    console.log(`Total price: ${precioFinal}`)
 
     const newOrder = await db.orders.create({
         data: {
