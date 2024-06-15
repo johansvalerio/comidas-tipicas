@@ -34,7 +34,7 @@ import Link from "next/link";
             )
             : (
               <div className="flex items-center justify-center bg-zinc-900 p-1 rounded-full">
-                <p className=" font-medium px-2.5 text-white rounded">{session?.user?.name}</p>
+                <p className=" font-medium px-2.5 text-white rounded capitalize">{session?.user?.name}</p>
                 <div className="rounded-full bg-zinc-800  h-9 w-9 flex justify-center items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-user"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>
                 </div>
@@ -44,7 +44,7 @@ import Link from "next/link";
           }
         >
           <DropdownHeader>
-            <span className="block text-sm">{session?.user?.name}</span>
+            <span className="block text-sm capitalize">{session?.user?.name}</span>
             <span className="block truncate text-sm font-medium">{session?.user?.email}</span>
           </DropdownHeader>
           <DropdownItem>
@@ -53,14 +53,14 @@ import Link from "next/link";
             Mi perfil</Link>
             </DropdownItem>
           <DropdownItem>
-            <Link href="/users/orders" className="flex items-center gap-1">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-shopping-bag"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M6.331 8h11.339a2 2 0 0 1 1.977 2.304l-1.255 8.152a3 3 0 0 1 -2.966 2.544h-6.852a3 3 0 0 1 -2.965 -2.544l-1.255 -8.152a2 2 0 0 1 1.977 -2.304z" /><path d="M9 11v-5a3 3 0 0 1 6 0v5" /></svg>
-            Mis pedidos</Link>
-            </DropdownItem>
-          <DropdownItem>
             <Link href="/users" className="flex items-center gap-1">
             <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  className="icon icon-tabler icons-tabler-outline icon-tabler-user-screen"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.03 17.818a3 3 0 0 0 1.97 -2.818v-8a3 3 0 0 0 -3 -3h-12a3 3 0 0 0 -3 3v8c0 1.317 .85 2.436 2.03 2.84" /><path d="M10 14a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M8 21a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2" /></svg>
             Users dashboard</Link>
+            </DropdownItem>
+            <DropdownItem>
+            <Link href="/users/orders" className="flex items-center gap-1">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-shopping-bag"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M6.331 8h11.339a2 2 0 0 1 1.977 2.304l-1.255 8.152a3 3 0 0 1 -2.966 2.544h-6.852a3 3 0 0 1 -2.965 -2.544l-1.255 -8.152a2 2 0 0 1 1.977 -2.304z" /><path d="M9 11v-5a3 3 0 0 1 6 0v5" /></svg>
+            Mis pedidos</Link>
             </DropdownItem>
           <DropdownDivider />
           <DropdownItem><Link href="/api/auth/signout" className="flex items-center gap-1">

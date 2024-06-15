@@ -92,7 +92,7 @@ export default function OrderList({ orders, session }: { orders: Orders, session
                                 order.order_status === "Pendiente" && "border-blue-600 bg-blue-300"}`}>
 
                             <p>Id orden: {order.order_id}</p>
-                            <p>Usuario: {order.user.user_name}</p>
+                            <p>Usuario: <p className="capitalize">{order.user.user_name}</p></p>
                             <p>Producto: {order.comida.comida_name}</p>
                             <p>Precio: ₡ {order.comida.comida_price}</p>
                             <p>Cantidad: {order.order_quantity}</p>

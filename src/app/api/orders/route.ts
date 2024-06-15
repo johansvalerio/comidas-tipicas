@@ -8,27 +8,30 @@ export async function POST(request: Request) {
 
     const session: Session | null = await getServerSession(authOptions)
 
-    if (!session) {
-        return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
-    }
-
     const user = await db.users.findUnique({
         where: {
             user_name: session?.user?.name as string
         }
     })
 
+    console.log(user)
+
     const data = await request.json()
 
     console.log(data)
+    console.log(data.comida_id)
 
     const comida = await db.comidas.findUnique({
         where: {
-            comida_id: Number(data.comida_id)
+            comida_id: data.comida_id
         }
     })
 
+    console.log(comida)
+
     const precioFinal = Number(comida?.comida_price) * Number(data.order_quantity)
+
+    console.log(precioFinal)
 
     const newOrder = await db.orders.create({
         data: {

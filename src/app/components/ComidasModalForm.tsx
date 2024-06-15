@@ -4,10 +4,13 @@ export default function ComidasModalForm({ isOpen, setIsOpen, comidaId, comidaNa
 
   const [submit, setSubmit] = useState(false)
   const formRef = useRef<HTMLFormElement>(null)
+  const [quantity, setQuantity] = useState('')
+  const [direction, setDirection] = useState('')
    
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
+    console.log(data)
     console.log(JSON.stringify(data))
 
     if (!data.get('quantity') || !data.get('direction')) {
@@ -51,8 +54,8 @@ export default function ComidasModalForm({ isOpen, setIsOpen, comidaId, comidaNa
     <div>
 
       {
-        session && isOpen === true 
-        ? <div className="w-full max-w-sm p-4 flex flex-col gap-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-white dark:border-white">
+        isOpen === true 
+        && <div className="w-full max-w-sm p-4 flex flex-col gap-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-white dark:border-white">
         <form onSubmit={handleSubmit}
           ref={formRef}
           className="space-y-2">
@@ -63,7 +66,8 @@ export default function ComidasModalForm({ isOpen, setIsOpen, comidaId, comidaNa
           </div>
           <div>
             <label htmlFor="direccion" className="block mb-2 text-sm font-medium text-zinc-800 dark:text-zinc-700">Dirección:</label>
-            <textarea id="direction" name="direction" placeholder="Dirección" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-500 dark:placeholder-gray-400 dark:text-slate-900 max-h-20 min-h-20" required />
+            <textarea
+             id="direction" name="direction" placeholder="Dirección" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-500 dark:placeholder-gray-400 dark:text-slate-900 max-h-20 min-h-20" required />
           </div>
           <div className="flex w-full items-center gap-2 py-4">
             <button className="bg-zinc-800 hover:bg-rose-600 hover:border-rose-600 text-white border-2
@@ -74,7 +78,6 @@ export default function ComidasModalForm({ isOpen, setIsOpen, comidaId, comidaNa
         </form>
 
       </div>
-      : null
     }
     </div>
   )

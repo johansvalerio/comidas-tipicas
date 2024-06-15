@@ -6,7 +6,11 @@ export async function GET() {
     const users = await db.users.findMany(
         {
             include: {
-                user_role: true
+                user_role: {
+                    include: {
+                        role: true
+                    }
+                }
             }
         }
     );
