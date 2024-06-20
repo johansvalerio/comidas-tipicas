@@ -53,13 +53,13 @@ export default function OrdenarForm({ comidas }: { comidas: Comidas }) {
 
   return (
     <div className="w-full flex-col flex md:flex-row justify-evenly items-center">
-      <div className="flex gap-2 items-center" >
+      <div className="flex gap-2 items-center mb-5" >
         {submit === true ? <h1 className="text-5xl">Gracias por ordenar!</h1>
           : <h1 className="text-7xl text-center text-choco-200 font-bold">¡Pedí acá!  <br />{comida.name}</h1>} 
       </div>
 
-      <div>
-        <form className="flex flex-col gap-4 bg-white py-7 px-5 rounded-md text-gray-500"
+      <div className="w-full max-w-xs">
+        <form className="flex flex-col gap-4 bg-white shadow-2xl py-7 px-5 rounded-md text-gray-500"
           onSubmit={handleSubmit}
           ref={formRef}>
 

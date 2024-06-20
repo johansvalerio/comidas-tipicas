@@ -22,7 +22,7 @@ export const authOptions: NextAuthOptions  = {
               }
           })
   
-          if (!userFound) throw new Error('No user found')
+          if (!userFound) throw new Error('No user found or invalid password')
   
           console.log(userFound)
   

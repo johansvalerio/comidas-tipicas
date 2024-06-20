@@ -27,7 +27,7 @@ export default function RootLayout({
           {children}
         </main>
         
-        <footer id='footer' className='bg-choco-400'>
+        <footer id='footer'>
         <Footer />
       </footer>
       </body>

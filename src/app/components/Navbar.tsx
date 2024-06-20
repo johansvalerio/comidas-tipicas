@@ -7,7 +7,7 @@ import {
   DropdownItem,
   Navbar,
   NavbarCollapse,
-  NavbarLink,
+  
   NavbarToggle,
 } from "flowbite-react";
 import Link from "next/link";
@@ -18,7 +18,7 @@ import Link from "next/link";
 
   return (
 
-    <Navbar fluid className="w-full justify-center bg-choco-400 text-white md:px-24 px-10 py-3 fixed z-20 border-choco-400 border-b">
+    <Navbar fluid className="w-full justify-center bg-black/90 text-white md:px-24 px-10 py-3 fixed z-20 border-choco-400 border-b">
       <a href="/" className="text-xl font-bold text-white">EL TAMALITO</a>
 
       <div className={`flex items-center ${session && 'justify-end'}
@@ -79,12 +79,12 @@ import Link from "next/link";
       <NavbarCollapse>
         {!session ? (
           <div className="flex items-center gap-4">
-            <NavbarLink href="/auth/register" className="text-white hover:text-black font-medium">
+            <a href="/auth/register" className="text-white hover:text-choco-100 font-medium">
               Registrarse
-            </NavbarLink>
-            <NavbarLink href="/auth/login" className="text-white hover:text-black font-medium">
+            </a>
+            <a href="/auth/login" className="text-white hover:text-choco-100 font-medium">
               Iniciar sesión
-            </NavbarLink>
+            </a>
           </div>
         )
          : (
