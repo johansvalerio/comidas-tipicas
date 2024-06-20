@@ -38,14 +38,7 @@ export async function POST(request: Request) {
         }
     })
 
-    // const roleUser = await db.user_role.create({
-    //     data: {
-    //         role_id: 2,
-    //         user_id: newUser.user_id
-    //     }
-    // })
 
      console.log("User created: " + JSON.stringify(newUser));
-    // console.log("User role created: " + JSON.stringify(roleUser));
     return NextResponse.json(newUser);
 }

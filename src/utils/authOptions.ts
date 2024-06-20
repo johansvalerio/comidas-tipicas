@@ -4,7 +4,6 @@ import db from "@/libs/db"
 
 export const authOptions: NextAuthOptions  = {
     providers: [
-
       CredentialsProvider({
         name: "Credentials",
         credentials: {

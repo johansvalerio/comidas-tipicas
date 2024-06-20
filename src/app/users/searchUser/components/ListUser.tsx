@@ -130,14 +130,14 @@ export default function ListUser({ users, updateUserList }: { users: Users, upda
               </div>
               <div>
                 <p>{user.user_id}</p>
-                <p>Name: {user.user_name}</p>
+                <p>Name: <span className="capitalize">{user.user_name}</span></p>
                 <p>Email: {user.user_email}</p>
                 <p>Password: {user.user_password}</p>
                 {
                   user.user_role ? <p>Role: {user.user_role?.role?.role_name}</p> : <p>No role</p>
                 }
-                <p>{user.user_created_on.toString()}</p>
-                <p>{user.user_updated_at.toString()}</p>
+                <p>Creado: {user.user_created_on.toString()}</p>
+                <p>Actualizado el: {user.user_updated_at.toString()}</p>
                 <div className="flex gap-2">
                   <DeleteButton user_id={user.user_id} />
                   <button

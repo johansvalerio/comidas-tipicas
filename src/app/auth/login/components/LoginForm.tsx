@@ -67,7 +67,7 @@ function LoginForm() {
           <button type='submit' className='rounded-md p-2.5 text-md bg-gray-900 text-white hover:bg-gray-800'>Iniciar sesión</button>
         </form>
       </div>
-      <div className='w-full max-w-sm text-white'>
+      {/* <div className='w-full max-w-sm text-white'>
         {
           !email
             ? <p>Email: <span className='text-teal-500 mx-1'>Ingresa el email</span></p>
@@ -79,7 +79,7 @@ function LoginForm() {
             ? <p>Password: <span className='text-teal-500 mx-1'>Ingresa el password</span></p>
             : <p>Password: <span className='mx-1'>{password}</span></p>
         }
-      </div>
+      </div> */}
     </div>
   )
 }

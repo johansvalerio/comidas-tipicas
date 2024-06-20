@@ -27,7 +27,7 @@ export async function POST(request: Request) {
         const userByName = await db.users.findMany({  //USAR FINDMANY PARA HACER BUSSQUEDAS AUTOMÁTICAS
             where: {
                 user_name: {
-                    contains: value // Usa 'contains' en lugar de 'startsWith' y 'endsWith'
+                    contains: value.toLowerCase() // Usa 'contains' en lugar de 'startsWith' y 'endsWith'
                 }
             }
         });

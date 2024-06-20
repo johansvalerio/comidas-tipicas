@@ -3,7 +3,7 @@ import Image from "next/image"
 export default function Header() {
   return (
     <div className="bg-[url('/img/tamales3-banner.jpg')] w-full h-[300px] md:h-[450px] lg:h-[600px] xl:h-screen
-            bg-no-repeat bg-cover ">
+            bg-no-repeat bg-cover opacity-80 ">
 
           <div className="w-full h-full flex flex-col justify-center items-center gap-1">
             <h1 className="text-5xl font-bold bg-black/80 py-4 px-10">EL TAMALITO</h1>

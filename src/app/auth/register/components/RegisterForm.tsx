@@ -101,7 +101,7 @@ function RegisterForm() {
 
                 </form>
             </div>
-            <div className='w-full max-w-sm text-white'>
+            {/* <div className='w-full max-w-sm text-white'>
                 {
                     !name
                         ? <p>Name: <span className='text-teal-500 mx-1'>Ingresa el name</span></p>
@@ -131,7 +131,7 @@ function RegisterForm() {
                             }
                         </p>
                 }
-            </div>
+            </div> */}
         </div>
     )
 }
