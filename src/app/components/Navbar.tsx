@@ -79,10 +79,10 @@ import Link from "next/link";
       <NavbarCollapse>
         {!session ? (
           <div className="flex items-center gap-4">
-            <a href="/auth/register" className="text-white hover:text-choco-100 font-medium">
+            <a href="/auth/register" className="text-white text-base hover:text-choco-100">
               Registrarse
             </a>
-            <a href="/auth/login" className="text-white hover:text-choco-100 font-medium">
+            <a href="/auth/login" className="text-white text-base hover:text-choco-100">
               Iniciar sesión
             </a>
           </div>

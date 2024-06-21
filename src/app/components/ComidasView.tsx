@@ -128,9 +128,9 @@ export default function ComidasView({session}: {session: Session | null}) {
                                 <h2 className="text-xl sm:text-3xl font-bold">Precio: {precio}</h2>
                               {
                                 !session ?  <button onClick={()=> signIn()}
-                                className="bg-mud-200 text-white px-6 py-2 rounded-lg border-2 border-mud-200 font-semibold hover:bg-mud-100 ease-in-out">Inicia sesión para ordenar</button>
+                                className="bg-green-500 text-white px-6 py-2 rounded-lg border-2 border-green-400 font-semibold hover:bg-green-400 hover:border-green-400 ease-in-out">Inicia sesión para ordenar</button>
                                 : <button onClick={() => !session ? setIsOpen(false) : setIsOpen(true)}
-                                className="bg-matcha-100 text-black px-6 py-2 rounded-lg border-2 border-black font-semibold hover:bg-choco-50 ease-in-out">Ordenar</button>
+                                className="bg-green-500 text-white px-6 py-2 rounded-lg border-2 border-green-400 font-semibold  hover:border-green-300  hover:bg-green-400 ease-in-out">Ordenar</button>
                               }
                                 
                             </div>
