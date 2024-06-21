@@ -18,7 +18,7 @@ export default async function Home() {
         <Header />
      
 
-      <section id='comidas' className='p-24 bg-zinc-900 '>
+      <section id='comidas' className='p-24 bg-gradient-to-b from-zinc-700 via-zinc-800 to-zinc-950   '>
         <ComidasView session={session} />
       </section>
 
