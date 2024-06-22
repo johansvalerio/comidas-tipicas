@@ -39,7 +39,7 @@ function RegisterForm() {
     return (
         <div className='flex flex-col min-h-screen items-center p-24 gap-3 bg-[url("/img/maiz2.png")]  bg-cover'>
 
-            <div className="w-full max-w-sm px-4 py-6 bg-black/80 shadow-lg rounded-2xl text-black">
+            <div className="w-full max-w-sm px-4 py-6 bg-black/90 shadow-lg rounded-2xl text-black">
                 <h1 className='text-xl text-white mb-3 flex justify-start items-baseline gap-1 font-medium'>Registro de usuario <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-user-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M16 19h6" /><path d="M19 16v6" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4" /></svg></h1>
                 <form
                     className="flex flex-col space-y-3"
@@ -56,7 +56,7 @@ function RegisterForm() {
                         })}
                         id="user_name"
                         name='user_name'
-                        className="rounded-md p-2.5 text-md opacity-60" placeholder="John Doe" />
+                        className="rounded-md p-2.5 text-md opacity-70" placeholder="John Doe" />
                     {
                         errors.user_name && <p className='text-red-500'>{errors.user_name.message}</p>
                     }
@@ -72,7 +72,7 @@ function RegisterForm() {
                         })}
                         id="user_email"
                         name='user_email'
-                        className="rounded-md p-2.5 text-md opacity-60"
+                        className="rounded-md p-2.5 text-md opacity-70"
                         placeholder="ejemplo@dominio.com" />
                     {
                         errors.user_email && <p className='text-red-500'>{errors.user_email.message}</p>
@@ -86,7 +86,7 @@ function RegisterForm() {
                             },
                             onChange: (e) => setPassword(e.target.value),
                         })}
-                        type="password" id="user_password" name='user_password' className="rounded-md p-2.5 text-md opacity-60" placeholder="******" />
+                        type="password" id="user_password" name='user_password' className="rounded-md p-2.5 text-md opacity-70" placeholder="******" />
                     {
                         errors.user_password && <p className='text-red-500'>{errors.user_password.message}</p>
                     }
@@ -96,12 +96,12 @@ function RegisterForm() {
                             required: true,
                             onChange: (e) => setConfirmPassword(e.target.value),
                         })}
-                        type="password" id="confirmPassword" name='confirmPassword' className="rounded-md p-2.5 text-md opacity-60" placeholder="******" />
+                        type="password" id="confirmPassword" name='confirmPassword' className="rounded-md p-2.5 text-md opacity-70" placeholder="******" />
                     {
                         errors.confirmPassword && <p className='text-red-500'>Las contraseñas no coinciden</p>
                     }
                     <div className='flex justify-end items-center gap-3 pt-3 font-medium'>
-                        <button type='submit' className='rounded-md p-3 text-md bg-choco-100 text-black font-semibold hover:bg-choco-50'>Crear usuario</button>
+                        <button type='submit' className='rounded-md p-3 text-md bg-amber-400 text-black font-semibold hover:bg-amber-300'>Crear usuario</button>
                         <a href="/auth/login" className='rounded-md p-3 font-medium text-md border border-gray-700 bg-gray-700 text-white hover:bg-gray-600 hover:border-gray-600'>Iniciar sesión</a>    
                     </div>
 

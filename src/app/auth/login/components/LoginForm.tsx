@@ -49,9 +49,10 @@ function LoginForm() {
   }
 
   return (
-    <div className='flex flex-col min-h-screen justify-center items-center gap-3 p-24 bg-[url("/img/maiz3.jpg")] object-cover bg-cover'>
+    <div className='flex flex-col h-screen justify-center items-end gap-3 p-24 bg-[url("/img/maiz3.jpg")] 
+    bg-cover'>
       
-      <div className="w-full max-w-sm px-4 py-6 bg-black/90 shadow-lg rounded-2xl text-black">
+      <div className="w-full max-w-sm px-4 py-6 bg-black/80 shadow-lg rounded-2xl text-black">
       <h1 className='text-xl text-white mb-3 flex justify-start items-baseline gap-1 font-medium'>Inicio de sesión
       <svg  xmlns="http://www.w3.org/2000/svg"  width="26"  height="26"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  className="icon icon-tabler icons-tabler-outline icon-tabler-user-check"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4" /><path d="M15 19l2 2l4 -4" /></svg>
       </h1>
@@ -72,8 +73,8 @@ function LoginForm() {
             error && <p className='text-red-500'>{error}</p>
           }
           <div className='flex justify-end items-center gap-3 pt-3 font-medium'>
-          <a href="/auth/register" className='rounded-md p-3 text-md font-semibold bg-choco-100 text-black hover:bg-choco-50'>Registrarse</a>
-              <button type='submit' className='rounded-md p-3 text-md font-medium border border-gray-700 bg-gray-700 text-white hover:bg-gray-600 hover:border-bg-gray-600'>
+          <a href="/auth/register" className='rounded-md p-3 text-md font-semibold bg-amber-400 text-black hover:bg-amber-300'>Registrarse</a>
+              <button type='submit' className='rounded-md p-3 text-md font-medium border border-slate-700 bg-slate-700 text-white hover:bg-slate-600 hover:border-bg-slate-600'>
                 Ingresar</button>
           </div>
           

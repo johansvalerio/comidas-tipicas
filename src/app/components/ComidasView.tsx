@@ -128,9 +128,9 @@ export default function ComidasView({session}: {session: Session | null}) {
                                 <h2 className="text-xl sm:text-3xl font-bold">Precio: {precio}</h2>
                               {
                                 !session ?  <button onClick={()=> signIn()}
-                                className="bg-green-500 text-white px-6 py-2 rounded-lg border-2 border-green-400 font-semibold hover:bg-green-400 hover:border-green-400 ease-in-out">Inicia sesión para ordenar</button>
+                                className="bg-amber-500 text-black px-6 py-2 rounded-full border-2 border-amber-500 font-semibold hover:bg-amber-400 hover:border-amber-400 ease-in-out">Inicia sesión para pedir</button>
                                 : <button onClick={() => !session ? setIsOpen(false) : setIsOpen(true)}
-                                className="bg-green-500 text-white px-6 py-2 rounded-lg border-2 border-green-400 font-semibold  hover:border-green-300  hover:bg-green-400 ease-in-out">Ordenar</button>
+                                className="bg-amber-500 text-black px-6 py-2 rounded-lg border-2 border-amber-500 font-semibold  hover:border-amber-400  hover:bg-amber-400 ease-in-out">Pedir {comida}</button>
                               }
                                 
                             </div>
@@ -145,7 +145,8 @@ export default function ComidasView({session}: {session: Session | null}) {
                             </div>
                         }
                         <img src={img} alt={comida}
-                            className={`rounded-lg transition ease-linear w-[600px] h-[400px] object-cover ${isHover === true ? "opacity-40" : "opacity-100"}`}
+                            className={`rounded-lg transition  w-[600px] h-[400px] 
+                                tranition ease-in-out object-cover ${isHover === true ? "opacity-50" : "opacity-100"}`}
                             onMouseEnter={() => setIsHover(true)}
                             onMouseLeave={() => setIsHover(false)} />
                     </div>

@@ -1,4 +1,4 @@
-import Header from './components/Header'
+import Hero from './components/Hero'
 import ComidasView from './components/ComidasView'
 import OrdenarForm from './components/OrdenarForm';
 import db from "@/libs/db"
@@ -15,7 +15,7 @@ export default async function Home() {
   return (
     <main className="w-full min-h-screen">
       
-        <Header />
+        <Hero />
      
 
       <section id='comidas' className='p-24 bg-gradient-to-b from-zinc-700 via-zinc-800 to-zinc-950   '>
