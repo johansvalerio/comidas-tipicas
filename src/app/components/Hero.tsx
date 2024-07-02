@@ -8,7 +8,7 @@ export default function Hero() {
     </div>
               
           <div className="w-full h-full flex flex-col justify-center items-center absolute  lg:top-[-50px] top-[-150px] md:top-[-100px] xl:top-0">
-            <h1 className="lg:text-6xl text-3xl sm:text-4xl md:text-5xl font-bold text-center
+            <h1 className="lg:text-6xl text-3xl text-white sm:text-4xl md:text-5xl font-bold text-center
              ">Bienvenidos a El Tamalito</h1>
             <p className="
             text-center

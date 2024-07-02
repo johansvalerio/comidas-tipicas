@@ -1,7 +1,7 @@
 import Image from "next/image"
 function Footer() {
   return (
-    <div className="pt-24 pb-24">
+    <div className="pt-24 pb-24 bg-black text-white " >
     <div className="flex justify-center items-center">
       <hr className="w-full" />
        <ul className="w-full flex lg:flex-row  flex-col justify-center items-center lg:gap-4 gap-2  border rounded-full py-2 px-1">
