@@ -100,9 +100,9 @@ function RegisterForm() {
                     {
                         errors.confirmPassword && <p className='text-red-500'>Las contraseñas no coinciden</p>
                     }
-                    <div className='flex justify-end items-center gap-3 pt-3 font-medium'>
-                        <button type='submit' className='rounded-md p-3 text-md bg-amber-400 text-black font-semibold hover:bg-amber-300'>Crear usuario</button>
-                        <a href="/auth/login" className='rounded-md p-3 font-medium text-md border border-gray-700 bg-gray-700 text-white hover:bg-gray-600 hover:border-gray-600'>Iniciar sesión</a>    
+                    <div className='flex justify-center items-center gap-3 pt-3 font-medium'>
+                        <button type='submit' className='text-center rounded-md md:p-3 p-2 text-md bg-amber-400 text-black font-semibold hover:bg-amber-300'>Crear usuario</button>
+                        <a href="/auth/login" className='text-center rounded-md md:p-3 p-2 font-medium text-md border border-gray-700 bg-gray-700 text-white hover:bg-gray-600 hover:border-gray-600'>Iniciar sesión</a>    
                     </div>
 
                 </form>

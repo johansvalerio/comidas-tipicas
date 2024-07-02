@@ -72,10 +72,13 @@ function LoginForm() {
           {
             error && <p className='text-red-500'>{error}</p>
           }
-          <div className='flex justify-end items-center gap-3 pt-3 font-medium'>
-          <a href="/auth/register" className='rounded-md p-3 text-md font-semibold bg-amber-400 text-black hover:bg-amber-300'>Registrarse</a>
-              <button type='submit' className='rounded-md p-3 text-md font-medium border border-slate-700 bg-slate-700 text-white hover:bg-slate-600 hover:border-bg-slate-600'>
-                Ingresar</button>
+          <div className='flex flex-col justify-center items-center gap-3 pt-3 font-medium'>
+          <button type='submit' className='w-full text-center rounded-md p-3 text-md font-medium border border-slate-700 bg-slate-700 text-white hover:bg-slate-600 hover:border-bg-slate-600'>
+          Iniciar sesión</button>
+          <div className='flex justify-center gap-1 items-center'> <p className='text-white'>¿No tienes cuenta?</p>
+          <a href="/auth/register" className='text-amber-500 underline'>  Registrate aqui</a>
+          </div>
+         
           </div>
           
         </form>

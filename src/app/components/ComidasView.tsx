@@ -96,7 +96,7 @@ export default function ComidasView({session}: {session: Session | null}) {
 
     return (
         <div className="">
-            <div className="flex md:items-center gap-4 md:text-start mb-10">
+            <div className="flex md:items-center gap-4 md:text-start Justify-center mb-10">
                 <h1 className='text-5xl font-bold text-white'>Comidas
                 </h1>
                 <Image src="/guanacaste.png" alt="Bandera de Guanacaste" width={50} height={40} />
