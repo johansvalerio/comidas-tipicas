@@ -6,7 +6,7 @@ export interface User {
   user_name: string
   user_password: string
   user_created_on: Date
-  user_updated_at: Date
+  
   user_email: string
   user_role?: UserWithRole | undefined | null
 }
