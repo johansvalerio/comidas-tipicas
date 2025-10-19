@@ -21,7 +21,6 @@ export default function Navbar({ session }: { session: Session | null }) {
   const navLinks = [
     { href: "/#hero", label: "Inicio" },
     { href: "/#comidas", label: "Comidas" },
-    { href: "/#ordenarForm", label: "Ordenar" },
   ];
 
   return (
