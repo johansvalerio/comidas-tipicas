@@ -1,35 +1,40 @@
-import Hero from './components/Hero'
-import ComidasView from './components/ComidasView'
-import OrdenarForm from './components/OrdenarForm';
-import db from "@/libs/db"
-import { type Comidas } from "@/app/types/comida"
+import Hero from "./components/Hero";
+import ComidasView from "./components/ComidasView";
+import OrdenarForm from "./components/OrdenarForm";
+import db from "@/libs/db";
+import { type Comidas } from "@/app/types/comida";
 import { authOptions } from "@/utils/authOptions";
 import { Session, getServerSession } from "next-auth";
 
 export default async function Home() {
-
-  const session: Session | null = await getServerSession(authOptions)
-  const comidas: Comidas = await db.comidas.findMany()
-  
+  const session: Session | null = await getServerSession(authOptions);
+  const comidas: Comidas = await db.comidas.findMany();
 
   return (
-    <main className="w-full min-h-screen">
-      
+    <main className="w-full min-h-screen bg-amber-50 backdrop-blur-sm">
+      {/* Hero Section */}
+      <section
+        id="hero"
+        className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20
+         "
+      >
         <Hero />
-     
+      </section>
 
-      <section id='comidas' className='p-24 bg-gradient-to-b from-zinc-700 via-zinc-800 to-zinc-950   '>
+      {/* Comidas Section */}
+      <section id="comidas" className="py-24 px-4 bg-white">
         <ComidasView session={session} />
       </section>
 
-      {/* <section id='origenes' className='p-24 bg-stone-200 h-screen'>
-      
-      </section> */}
-
-      <section id='ordenarForm' className='flex bg-choco-100 h-screen w-full justify-center items-center'>
-        <OrdenarForm comidas={comidas} />
+      {/* Ordenar Form Section */}
+      <section
+        id="ordenarForm"
+        className="flex min-h-screen py-16 w-full justify-center items-center bg-amber-900/5"
+      >
+        <div className="w-full max-w-4xl mx-4 bg-white/80 backdrop-blur-lg rounded-xl shadow-2xl p-8 border border-amber-100">
+          <OrdenarForm comidas={comidas} />
+        </div>
       </section>
-
     </main>
   );
 }

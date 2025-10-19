@@ -1,35 +1,62 @@
-import Image from "next/image"
+"use client";
+
+import { ChevronDown } from "lucide-react";
+import Link from "next/link";
 
 export default function Hero() {
   return (
     <>
-    <div className="bg-[url('/img/tamales3-banner.jpg')] w-full h-[300px] md:h-[450px] lg:h-[600px] xl:h-screen
-            bg-no-repeat bg-cover opacity-40 ">
-    </div>
-              
-          <div className="w-full h-full flex flex-col justify-center items-center absolute  lg:top-[-50px] top-[-150px] md:top-[-100px] xl:top-0">
-            <h1 className="lg:text-6xl text-3xl text-white sm:text-4xl md:text-5xl font-bold text-center
-             ">Bienvenidos a El Tamalito</h1>
-            <p className="
-            text-center
-            text-sm
-            sm:text-md
-            md:text-md
-            lg:text-lg
-            text-slate-200 
-             md:w-[550px] lg:w-[720px] sm:w-[400px] w-[360px]
-            ">Somos una empresa comprometida a promover el delicioso sabor de la comida guanacasteca.</p>
-            <div className='flex gap-2 my-5'>
-              <a href="#ordenarForm" className='bg-amber-400 flex items-center gap-1 text-black border-2 
-              border-amber-400 font-semibold p-2 rounded-lg 
-              hover:bg-amber-300 hover:border-amber-300'>Pedí ya!
-              <Image src="/tamal-icon.png" alt="tamales2-icon" className="rotate-6" width={25} height={25}
-              loading="lazy" />
-              </a>
-             <a  href="#comidas" className='bg-black text-white px-6 py-2 rounded-lg border-2 border-black font-medium hover:bg-gray-900 hover:border-gray-900'>Comidas</a>
-            </div>
-             
+      {/* Fondo con máscara */}
+      <div className=" absolute inset-0 z-0">
+        <img
+          src="/img/tamales3-banner.jpg"
+          alt="El Tamalito"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-white" />
+      </div>
+
+      {/* Floating Elements */}
+      <div className="absolute top-32 left-10 w-20 h-20 bg-white/20 rounded-full blur-3xl animate-float" />
+      <div
+        className="absolute bottom-40 right-20 w-32 h-32 bg-white/20 rounded-full blur-3xl animate-float"
+        style={{ animationDelay: "1s" }}
+      />
+
+      {/* Content */}
+      <div className="relative z-10 container mx-auto px-4 text-center">
+        <div className="max-w-5xl mx-auto space-y-6">
+          <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight text-balance">
+            El
+            <span className="block text-accent">Tamalito</span>
+          </h1>
+          <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto text-pretty leading-relaxed">
+            Sabor típico costarricense al alcance de un click
+          </p>
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-6">
+            <button className="relative overflow-hidden group text-lg px-8 py-4 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-white transition-all duration-300 hover:bg-emerald-500/20 hover:border-emerald-300/50 hover:shadow-lg hover:shadow-emerald-500/20">
+              <span className="relative z-10">
+                <Link href="#comidas">Ver Menú</Link>
+              </span>
+              <span className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/30 to-emerald-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+            </button>
+            <button className="relative overflow-hidden group text-lg px-8 py-4 rounded-xl bg-emerald-600/90 backdrop-blur-md border border-emerald-500/30 text-white transition-all duration-300 hover:bg-emerald-500 hover:shadow-lg hover:shadow-emerald-500/30">
+              <span className="relative z-10">
+                <Link href="#ordenarForm">Ordenar Ahora</Link>
+              </span>
+              <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+            </button>
           </div>
-          </>
-  )
+        </div>
+
+        {/* Scroll Indicator */}
+        <button
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer"
+          aria-label="Scroll down"
+        >
+          <ChevronDown className="w-8 h-8 text-white" />
+        </button>
+      </div>
+    </>
+  );
 }

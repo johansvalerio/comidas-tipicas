@@ -1,115 +1,119 @@
-import { authOptions } from "@/utils/authOptions";
-import { getServerSession, type Session } from "next-auth";
-import {
-  Dropdown,
-  DropdownDivider,
-  DropdownHeader,
-  DropdownItem,
-  Navbar,
-  NavbarCollapse,
-  
-  NavbarToggle,
-} from "flowbite-react";
+"use client";
+import { useState, useEffect } from "react";
+
 import Link from "next/link";
+import { Menu, X } from "lucide-react";
+import { Session } from "next-auth";
+import UserDropdown from "./DropDown";
+export default function Navbar({ session }: { session: Session | null }) {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
- async function Menu() {
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
 
-  const session = await getServerSession(authOptions);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const navLinks = [
+    { href: "/#hero", label: "Inicio" },
+    { href: "/#comidas", label: "Comidas" },
+    { href: "/#ordenarForm", label: "Ordenar" },
+  ];
 
   return (
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? "bg-black/90 backdrop-blur-md shadow-lg" : "bg-black/80"
+      }`}
+    >
+      <div className="container mx-auto px-8 ">
+        <div className="flex items-center justify-between h-20 ">
+          {/* Logo */}
+          <Link href="/#inicio" className="flex items-center gap-3 group">
+            <div className="block">
+              <h1 className="text-xl font-bold text-white">El Tamalito</h1>
+              <p className="text-xs text-white">Comidas típicas</p>
+            </div>
+          </Link>
 
-    <Navbar fluid className="w-full justify-center bg-black/90 text-white md:px-24 px-10 py-3 fixed z-20 border-choco-400 border-b">
-      <a href="/" className="text-xl font-bold text-white">EL TAMALITO</a>
-
-      <div className={`flex items-center ${session && 'justify-end'}
-       ${session && 'md:order-2'} `}>
-
-        <Dropdown
-          arrowIcon={false}
-          inline
-          label={
-
-            !session ? (
-              null
-            )
-            : (
-              <div className="flex items-center justify-center bg-zinc-900 p-1 rounded-full">
-                <p className=" font-medium px-2.5 text-white rounded capitalize">{session?.user?.name}</p>
-                <div className="rounded-full bg-zinc-800  h-9 w-9 flex justify-center items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-user"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>
-                </div>
-
-              </div>
-            )
-          }
-        >
-          <DropdownHeader>
-            <span className="block text-sm capitalize">{session?.user?.name}</span>
-            <span className="block truncate text-sm font-medium">{session?.user?.email}</span>
-          </DropdownHeader>
-          <DropdownItem>
-            <Link href="/users/miperfil" className="flex items-center gap-1">
-          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round"  className="icon icon-tabler icons-tabler-outline icon-tabler-user-cog"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h2.5" /><path d="M19.001 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M19.001 15.5v1.5" /><path d="M19.001 21v1.5" /><path d="M22.032 17.25l-1.299 .75" /><path d="M17.27 20l-1.3 .75" /><path d="M15.97 17.25l1.3 .75" /><path d="M20.733 20l1.3 .75" /></svg>
-            Mi perfil</Link>
-            </DropdownItem>
-         {
-            session?.user?.role === 1 &&
-            <DropdownItem>
-            <Link href="/users" className="flex items-center gap-1">
-            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round"  className="icon icon-tabler icons-tabler-outline icon-tabler-user-screen"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.03 17.818a3 3 0 0 0 1.97 -2.818v-8a3 3 0 0 0 -3 -3h-12a3 3 0 0 0 -3 3v8c0 1.317 .85 2.436 2.03 2.84" /><path d="M10 14a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M8 21a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2" /></svg>
-            Users dashboard</Link>
-            </DropdownItem>
-         }
-
-            <DropdownItem>
-            <Link href="/users/orders" className="flex items-center gap-1">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-shopping-bag"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M6.331 8h11.339a2 2 0 0 1 1.977 2.304l-1.255 8.152a3 3 0 0 1 -2.966 2.544h-6.852a3 3 0 0 1 -2.965 -2.544l-1.255 -8.152a2 2 0 0 1 1.977 -2.304z" /><path d="M9 11v-5a3 3 0 0 1 6 0v5" /></svg>
-            Mis pedidos</Link>
-            </DropdownItem>
-          <DropdownDivider />
-          <DropdownItem><Link href="/api/auth/signout" className="flex items-center gap-1">
-          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round"  className="icon icon-tabler icons-tabler-outline icon-tabler-logout"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" /><path d="M9 12h12l-3 -3" /><path d="M18 15l3 -3" /></svg>
-            Cerrar sesión</Link></DropdownItem>
-        </Dropdown>
-
-      </div>
-      
-      <NavbarToggle />
-
-      <NavbarCollapse>
-        {!session && (
-          <div className="flex items-center gap-4">
-            <a href="/auth/register" className="text-white text-base hover:text-choco-100">
-              Registrarse
-            </a>
-            <a href="/auth/login" className="text-white text-base hover:text-choco-100">
-              Iniciar sesión
-            </a>
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center gap-8 px-3">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-white hover:text-accent hover:scale-105 transition-all duration-300 font-medium"
+              >
+                {link.label}
+              </Link>
+            ))}
+            <Link
+              href="/#ordenarForm"
+              className="text-white hover:text-white px-3 py-2 bg-emerald-600 rounded-full hover:bg-emerald-500/90 hover:scale-105 transition-all duration-300 font-medium"
+            >
+              Ordenar
+            </Link>
+            {!session ? (
+              <Link
+                href="/auth/login"
+                className="text-white hover:text-white px-3 py-2 rounded-full hover:bg-amber-500/90 hover:scale-105 transition-all duration-300 font-medium"
+              >
+                Iniciar sesión
+              </Link>
+            ) : (
+              <UserDropdown session={session} />
+            )}
           </div>
-         )
-        //  : (
-        // //   <div className="flex items-center   justify-center gap-6 text-base font-semibold">
 
-        // //   <Link href="/" className="flex items-center gap-1 text-white font-semibold hover:text-choco-50">
-        // //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-home"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 12l-2 0l9 -9l9 9l-2 0" /><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" /><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" /></svg>
-        // //     Home
-        // //   </Link>
-        // //   {/* <Link href="/users/orders" className="flex items-center gap-1 text-white font-semibold hover:text-choco-50">
-        // //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-shopping-bag"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M6.331 8h11.339a2 2 0 0 1 1.977 2.304l-1.255 8.152a3 3 0 0 1 -2.966 2.544h-6.852a3 3 0 0 1 -2.965 -2.544l-1.255 -8.152a2 2 0 0 1 1.977 -2.304z" /><path d="M9 11v-5a3 3 0 0 1 6 0v5" /></svg>
-        // //     Mis pedidos
-        // //   </Link> */}
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="lg:hidden text-white hover:text-accent transition-colors p-2"
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+        </div>
 
-        // // </div>
-        //  )
-      }
-        
-
-
-      </NavbarCollapse>
-
-    </Navbar>
+        {/* Mobile Navigation */}
+        {isMobileMenuOpen && (
+          <div className="lg:hidden py-4 border-t border-white/10">
+            <div className="flex flex-col gap-4">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-white hover:text-accent transition-colors duration-300 font-medium py-2"
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <Link
+                href="/#ordenarForm"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-white text-center hover:text-white p-1 bg-emerald-600 rounded-full hover:bg-emerald-500/90 hover:scale-105 transition-all duration-300 font-medium"
+              >
+                Ordenar
+              </Link>
+              {!session ? (
+                <Link
+                  href="/api/auth/signin"
+                  className="text-white text-center hover:text-white p-1 bg-amber-600 rounded-full hover:bg-amber-500/90 hover:scale-105 transition-all duration-300 font-medium"
+                >
+                  Iniciar sesión
+                </Link>
+              ) : (
+                <UserDropdown session={session} />
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    </nav>
   );
 }
-
-
-export default Menu;

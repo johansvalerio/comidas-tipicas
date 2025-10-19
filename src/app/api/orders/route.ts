@@ -71,7 +71,7 @@ export async function GET() {
 export async function PATCH(request: Request) {
 
     const data = await request.json()
-    
+
     const newOrderStatus = await db.orders.update({
         where: {
             order_id: Number(data.order_id)
@@ -82,5 +82,5 @@ export async function PATCH(request: Request) {
     })
 
     return NextResponse.json(newOrderStatus)
-    
+
 }

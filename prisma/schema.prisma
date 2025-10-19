@@ -16,7 +16,6 @@ model users {
   user_name       String   @unique
   user_password   String
   user_created_on DateTime @default(now())
-  user_updated_at DateTime @updatedAt
   user_email      String   @unique
   order           orders[]
   user_role       user_role?
@@ -53,9 +52,10 @@ model orders {
   order_comment    String
   order_status     String
   order_total      Float
+  order_quantity   Int
+
   user_id          Int       
   comida_id        Int      
-  order_quantity   Int
   comida           comidas  @relation(fields: [comida_id], references: [comida_id])
   user             users    @relation(fields: [user_id], references: [user_id])
 }

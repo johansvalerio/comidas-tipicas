@@ -1,84 +1,184 @@
-import { Session } from "next-auth"
-import { useState, useRef } from "react"
-export default function ComidasModalForm({ isOpen, setIsOpen, comidaId, comidaName, session }: { isOpen: boolean, setIsOpen: any, comidaId: number, comidaName: string, session: Session | null }) {
+"use client";
 
-  const [submit, setSubmit] = useState(false)
-  const formRef = useRef<HTMLFormElement>(null)
-  const [quantity, setQuantity] = useState('')
-  const [direction, setDirection] = useState('')
-   
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    const data = new FormData(event.currentTarget)
-    console.log(data)
-    console.log(JSON.stringify(data))
+import { useState, FormEvent } from "react";
+import { Minus, Plus, X } from "lucide-react";
 
-    if (!data.get('quantity') || !data.get('direction')) {
-      alert('Por favor completa todos los campos')
-      return
-    }
+interface ComidasModalFormProps {
+  isOpen: boolean;
+  onClose: () => void;
+  comida: string;
+  id: number;
+  precio: number;
+}
 
-    if (!data.get('comment')) {
-      data.append('comment', 'No comments')
-    }
+export default function ComidasModalForm({
+  isOpen,
+  onClose,
+  comida,
+  id,
+  precio,
+}: ComidasModalFormProps) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+  const [formData, setFormData] = useState({
+    direction: "",
+    comment: "",
+  });
 
-    const res = await fetch('/api/orders', {
-      method: 'POST',
-      body: JSON.stringify({
-        order_quantity: data.get('quantity'),
-        order_address: data.get('direction'),
-        order_comment: data.get('comment'),
-        comida_id: comidaId
-      }),
-      headers: {
-        'Content-Type': 'application/json'
+  if (!isOpen) return null;
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const data = new FormData();
+    data.append("quantity", quantity.toString());
+    data.append("direction", formData.direction);
+    data.append("comment", formData.comment || "No comments");
+    data.append("comida_id", id.toString());
+
+    try {
+      const res = await fetch("/api/orders", {
+        method: "POST",
+        body: JSON.stringify({
+          order_quantity: quantity,
+          order_address: formData.direction,
+          order_comment: formData.comment || "No comments",
+          comida_id: id,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!res.ok) {
+        throw new Error("Error al realizar el pedido");
       }
-    })
 
-    console.log(res)
-
-    const newOrder = await res.json()
-    setSubmit(true)
-    console.log(newOrder)
-
-    //limpiar formulario
-    if (formRef.current) {
-      formRef.current.reset()
-      setIsOpen(false)
+      // Cerrar el modal y limpiar el formulario
+      onClose();
+      setFormData({ direction: "", comment: "" });
+      alert("¡Pedido realizado con éxito!");
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Hubo un error al procesar tu pedido");
+    } finally {
+      setIsSubmitting(false);
     }
+  };
 
-  }
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
+  const incrementQuantity = () => setQuantity((prev) => Math.min(prev + 1, 10));
+  const decrementQuantity = () => setQuantity((prev) => Math.max(prev - 1, 1));
 
   return (
-    <div>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+      <div className="bg-white rounded-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+        {/* Encabezado */}
+        <div className="flex justify-between items-center p-4 border-b">
+          <h2 className="text-xl font-bold text-gray-900">Realizar Pedido</h2>
+          <button
+            onClick={onClose}
+            className="text-gray-500 hover:text-gray-700"
+            aria-label="Cerrar"
+          >
+            <X className="h-6 w-6" />
+          </button>
+        </div>
 
-      {
-        isOpen === true 
-        && <div className="w-full max-w-sm p-4 flex flex-col gap-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-white dark:border-white">
-        <form onSubmit={handleSubmit}
-          ref={formRef}
-          className="space-y-2">
-          <h5 className="text-xl font-medium text-gray-900 dark:text-black">Pedido de &quot;{comidaName}&quot;</h5>
-          <div>
-            <label htmlFor="quantity" className="block mb-2 text-sm font-medium text-zinc-800 dark:text-zinc-700">Cantidad</label>
-            <input type="number" name="quantity" id="quantity" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-500 dark:placeholder-gray-400 dark:text-slate-900" placeholder="Cantidad" required />
-          </div>
-          <div>
-            <label htmlFor="direccion" className="block mb-2 text-sm font-medium text-zinc-800 dark:text-zinc-700">Dirección</label>
-            <textarea
-             id="direction" name="direction" placeholder="Dirección" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-500 dark:placeholder-gray-400 dark:text-slate-900 max-h-20 min-h-20" required />
-          </div>
-          <div className="flex w-full items-center gap-2 py-4">
-            <button className="bg-zinc-800 hover:bg-zinc-700 text-white 
-          p-2 rounded font-medium" onClick={() => setIsOpen(false)}>Cancelar</button>
-            <button type="submit" className="bg-amber-500 hover:bg-amber-400
-         text-black p-2 rounded font-medium">Confirmar</button>
-          </div>
-        </form>
+        {/* Contenido */}
+        <div className="p-6">
+          <div className="mb-6">
+            <h3 className="text-lg font-medium text-gray-900 mb-2">{comida}</h3>
+            <p className="text-emerald-600 font-semibold mb-4">
+              {quantity} x ₡ {precio} = ₡ {quantity * Number(precio)}
+            </p>
 
+            <div className="flex items-center space-x-4 mb-6">
+              <span className="text-sm font-medium text-gray-700">
+                Cantidad:
+              </span>
+              <div className="flex items-center space-x-2">
+                <button
+                  type="button"
+                  onClick={decrementQuantity}
+                  className="p-1 rounded-full bg-gray-100 hover:bg-gray-200"
+                  disabled={quantity <= 1}
+                >
+                  <Minus className="h-4 w-4" />
+                </button>
+                <span className="w-8 text-center">{quantity}</span>
+                <button
+                  type="button"
+                  onClick={incrementQuantity}
+                  className="p-1 rounded-full bg-gray-100 hover:bg-gray-200"
+                  disabled={quantity >= 10}
+                >
+                  <Plus className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label
+                  htmlFor="direction"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Dirección de entrega
+                </label>
+                <input
+                  type="text"
+                  id="direction"
+                  name="direction"
+                  value={formData.direction}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                  placeholder="Ej: 200m oeste del parque central"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="comment"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Comentarios adicionales (opcional)
+                </label>
+                <textarea
+                  id="comment"
+                  name="comment"
+                  value={formData.comment}
+                  onChange={handleChange}
+                  rows={3}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                  placeholder="Especificaciones o indicaciones adicionales"
+                />
+              </div>
+
+              <div className="pt-4">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 disabled:opacity-50"
+                >
+                  {isSubmitting ? "Procesando..." : "Confirmar Pedido"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-    }
     </div>
-  )
+  );
 }

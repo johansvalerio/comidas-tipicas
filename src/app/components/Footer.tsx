@@ -1,4 +1,4 @@
-import Image from "next/image"
+
 function Footer() {
   return (
     <div className="pt-24 pb-24 bg-black text-white " >

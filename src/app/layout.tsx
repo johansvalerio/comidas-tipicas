@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Menu from "./components/Navbar"
+import ServerNavbar from "./components/ServerNavbar";
 import Footer from "./components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description: "Tamales con el mejor sabor guanacasteco",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -20,16 +20,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <header>
-          <Menu />
+          <ServerNavbar />
         </header>
-        
-        <main>
-          {children}
-        </main>
-        
-        <footer id='footer'>
-        <Footer />
-      </footer>
+
+        <main>{children}</main>
+
+        <footer id="footer">
+          <Footer />
+        </footer>
       </body>
     </html>
   );
